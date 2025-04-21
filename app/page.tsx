@@ -26,14 +26,8 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="relative h-10 w-10 overflow-hidden">
-              <Image
-                src="/placeholder.svg?height=40&width=40&text=Logo"
-                alt="Number One Ultra Shine Logo"
-                width={40}
-                height={40}
-                className="object-contain"
-              />
+            <div className="relative h-10 w-10 overflow-hidden flex items-center justify-center bg-gradient-to-r from-blue-500 to-cyan-400 rounded-md">
+              <Droplets className="h-6 w-6 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent">
               Number One Ultra Shine
@@ -89,30 +83,35 @@ export default function Home() {
         <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/placeholder.svg?height=1080&width=1920&text=Car+Wash+Hero+Image"
-              alt="Car being washed"
+              src="/beautiful-car-washing-service.jpg"
+              alt="Beautiful Car Washing Service"
               fill
-              className="object-cover brightness-[0.7]"
+              className="object-cover brightness-[0.8]"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 to-cyan-900/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-cyan-900/20"></div>
           </div>
           <div className="container relative z-10 text-center text-white">
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Professional Car Wash & Detailing</h1>
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+                Professional Car Wash & Detailing
+              </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
                 Keep your vehicle looking its best with our premium washing and detailing services
               </p>
               <WaterButton
                 size="lg"
                 className="animate-pulse-subtle"
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 Book Now
               </WaterButton>
             </div>
           </div>
         </section>
+
 
         <WaveDivider />
 
@@ -184,29 +183,30 @@ export default function Home() {
                   <div className="absolute -inset-4 bg-blue-200 transform rotate-3"></div>
                   <div className="relative z-10 grid grid-cols-2 gap-4">
                     <Image
-                      src="/placeholder.svg?height=300&width=400&text=Car+Detailing"
+                      src="/beautiful-car-interior-clean-up-service.jpg"
+
                       alt="Car detailing process"
                       width={400}
                       height={300}
                       className="shadow-lg object-cover"
                     />
                     <Image
-                      src="/placeholder.svg?height=300&width=400&text=Interior+Cleaning"
+                      src="/close-up-car-care-washing.jpg"
                       alt="Interior cleaning"
                       width={400}
                       height={300}
                       className="shadow-lg object-cover"
                     />
                     <Image
-                      src="/placeholder.svg?height=300&width=400&text=Exterior+Washing"
+                      src="/close-up-car-care-washing (1).jpg"
                       alt="Exterior washing"
                       width={400}
                       height={300}
                       className="shadow-lg object-cover"
                     />
                     <Image
-                      src="/placeholder.svg?height=300&width=400&text=Waxing+Process"
-                      alt="Waxing process"
+                      src="/car-wash-detailing-station.jpg"
+                      alt="Car polishing and detailing"
                       width={400}
                       height={300}
                       className="shadow-lg object-cover"
@@ -234,7 +234,7 @@ export default function Home() {
                   <p className="italic relative z-10">
                     "The best car wash in town! My car always looks brand new after a visit to Number One Ultra Shine."
                   </p>
-                  <p className="font-medium mt-2 relative z-10">— John D., Loyal Customer</p>
+                  <p className="font-medium mt-2 relative z-10">— Amr M., Loyal Customer</p>
                 </div>
               </div>
             </div>

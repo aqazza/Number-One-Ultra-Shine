@@ -10,7 +10,7 @@ export function BubbleBackground({ small = false }: BubbleBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isHovering, setIsHovering] = useState(false)
   const animationSpeedRef = useRef(0)
-  const requestRef = useRef<number>()
+  const requestRef = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     const canvas = canvasRef.current
