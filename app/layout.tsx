@@ -6,8 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SplashWash - Professional Car Wash & Detailing",
-  description: "Keep your vehicle looking its best with our premium washing and detailing services",
+  title: "Number One Ultra Shine - Professional Car Wash & Detailing",
+   description: "We offer a comprehensive range of car washing and detailing services to keep your vehicle looking its best",
     generator: 'v0.dev'
 }
 

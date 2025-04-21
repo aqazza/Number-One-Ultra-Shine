@@ -97,8 +97,8 @@ export default function Home() {
                 Professional Car Wash & Detailing
               </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
-                Keep your vehicle looking its best with our premium washing and detailing services
-              </p>
+              Experience the art of car care with our expert wash and precision detailing services.
+</p>
               <WaterButton
                 size="lg"
                 className="animate-pulse-subtle"
@@ -123,7 +123,7 @@ export default function Home() {
               We offer a comprehensive range of car washing and detailing services to keep your vehicle looking its best
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Car className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
                   <CardTitle>Exterior Wash</CardTitle>
@@ -135,7 +135,7 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Sparkles className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
                   <CardTitle>Interior Detailing</CardTitle>
@@ -147,7 +147,7 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Droplets className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
                   <CardTitle>Waxing & Polishing</CardTitle>
@@ -159,7 +159,7 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <CalendarClock className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
                   <CardTitle>Monthly Plans</CardTitle>
@@ -182,35 +182,42 @@ export default function Home() {
                 <div className="relative">
                   <div className="absolute -inset-4 bg-blue-200 transform rotate-3"></div>
                   <div className="relative z-10 grid grid-cols-2 gap-4">
-                    <Image
-                      src="/beautiful-car-interior-clean-up-service.jpg"
-
-                      alt="Car detailing process"
-                      width={400}
-                      height={300}
-                      className="shadow-lg object-cover"
-                    />
-                    <Image
-                      src="/close-up-car-care-washing.jpg"
-                      alt="Interior cleaning"
-                      width={400}
-                      height={300}
-                      className="shadow-lg object-cover"
-                    />
-                    <Image
-                      src="/close-up-car-care-washing (1).jpg"
-                      alt="Exterior washing"
-                      width={400}
-                      height={300}
-                      className="shadow-lg object-cover"
-                    />
-                    <Image
-                      src="/car-wash-detailing-station.jpg"
-                      alt="Car polishing and detailing"
-                      width={400}
-                      height={300}
-                      className="shadow-lg object-cover"
-                    />
+                    <div className="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        src="/beautiful-car-interior-clean-up-service.jpg"
+                        alt="Car detailing process"
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                      />
+                    </div>
+                    <div className="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        src="/close-up-car-care-washing.jpg"
+                        alt="Interior cleaning"
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                      />
+                    </div>
+                    <div className="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        src="/close-up-car-care-washing (1).jpg"
+                        alt="Exterior washing"
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                      />
+                    </div>
+                    <div className="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        src="/car-wash-detailing-station.jpg"
+                        alt="Car polishing and detailing"
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                      />
+                    </div>
                   </div>
                   <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-blue-500 to-cyan-400 p-4 shadow-lg z-20">
                     <p className="text-white font-bold">10+ Years Experience</p>
