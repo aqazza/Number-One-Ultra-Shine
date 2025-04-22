@@ -657,8 +657,11 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
                 <div className="relative z-10">
-                  <div className="bg-gradient-to-br from-blue-500 to-cyan-400 p-6 w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
-                    <Leaf className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mx-auto mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-full transform -rotate-6"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-full flex items-center justify-center shadow-lg">
+                      <Leaf className="w-10 h-10 text-white" />
+                    </div>
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-center">Eco-Friendly</h3>
                   <p className="text-center">
@@ -670,8 +673,11 @@ export default function Home() {
 
               <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
                 <div className="relative z-10">
-                  <div className="bg-gradient-to-br from-blue-500 to-cyan-400 p-6 w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
-                    <Clock className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mx-auto mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-lg transform rotate-45 scale-90"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-lg flex items-center justify-center shadow-lg">
+                      <Clock className="w-10 h-10 text-white" />
+                    </div>
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-center">Fast Service</h3>
                   <p className="text-center">
@@ -683,8 +689,11 @@ export default function Home() {
 
               <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
                 <div className="relative z-10">
-                  <div className="bg-gradient-to-br from-blue-500 to-cyan-400 p-6 w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
-                    <ShieldCheck className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mx-auto mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-[30px] transform -rotate-12"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-[30px] flex items-center justify-center shadow-lg">
+                      <ShieldCheck className="w-10 h-10 text-white" />
+                    </div>
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-center">Satisfaction Guaranteed</h3>
                   <p className="text-center">
