@@ -13,14 +13,6 @@ export const WaterButton = forwardRef<HTMLButtonElement, WaterButtonProps>(
   ({ className, variant, size, children, onClick, ...props }, ref) => {
     return (
       <div className="relative group">
-        <div
-          className={cn(
-            "absolute inset-0 blur-md opacity-40 group-hover:opacity-80 transition-all duration-500 rounded-md",
-            variant === "default" || !variant
-              ? "bg-gradient-to-r from-blue-500 to-cyan-400"
-              : "bg-gradient-to-r from-blue-400/50 to-cyan-300/50",
-          )}
-        ></div>
         <Button
           ref={ref}
           variant={variant}

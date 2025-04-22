@@ -23,22 +23,20 @@ export function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ name: "", email: "", phone: "", message: "" })
-
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
+  
+    const subject = encodeURIComponent(`Message from ${formData.name}`)
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`
+    )
+  
+    const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=1ultrashine@gmail.com&su=${subject}&body=${body}`
+  
+    window.open(gmailURL, "_blank")
   }
+  
+  
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>

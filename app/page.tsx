@@ -10,9 +10,6 @@ import {
   Clock,
   Leaf,
   ShieldCheck,
-  Facebook,
-  Twitter,
-  Instagram,
 } from "lucide-react"
 import { BubbleBackground } from "@/components/bubble-background"
 import { WaterButton } from "@/components/water-button"
@@ -24,7 +21,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       {/* Sticky Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="relative h-10 w-10 overflow-hidden flex items-center justify-center bg-gradient-to-r from-blue-500 to-cyan-400 rounded-md">
               <Droplets className="h-6 w-6 text-white" />
@@ -54,9 +51,11 @@ export default function Home() {
               Contact
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
             </a>
-            <WaterButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-              Book Now
-            </WaterButton>
+            <div className="inline-block">
+              <WaterButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+                Book Now
+              </WaterButton>
+            </div>
           </nav>
           <button className="md:hidden p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors">
             <svg
@@ -91,14 +90,14 @@ export default function Home() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-cyan-900/20"></div>
           </div>
-          <div className="container relative z-10 text-center text-white">
+          <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center text-white">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
                 Professional Car Wash & Detailing
               </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
-              Experience the art of car care with our expert wash and precision detailing services.
-</p>
+                Experience the art of car care with our expert wash and precision detailing services.
+              </p>
               <WaterButton
                 size="lg"
                 className="animate-pulse-subtle"
@@ -112,12 +111,11 @@ export default function Home() {
           </div>
         </section>
 
-
         <WaveDivider />
 
         {/* Services Section */}
         <section id="services" className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="container">
+          <div className="container mx-auto px-4 max-w-7xl">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Services</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               We offer a comprehensive range of car washing and detailing services to keep your vehicle looking its best
@@ -176,7 +174,7 @@ export default function Home() {
 
         {/* About Us Section */}
         <section id="about" className="py-20 relative overflow-hidden">
-          <div className="container relative">
+          <div className="container mx-auto px-4 max-w-7xl relative">
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="md:w-1/2">
                 <div className="relative">
@@ -225,7 +223,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="md:w-1/2">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
                   About Number One Ultra Shine
                 </h2>
                 <p className="text-lg mb-6">
@@ -241,7 +239,7 @@ export default function Home() {
                   <p className="italic relative z-10">
                     "The best car wash in town! My car always looks brand new after a visit to Number One Ultra Shine."
                   </p>
-                  <p className="font-medium mt-2 relative z-10">— Amr M., Loyal Customer</p>
+                  <p className="font-medium mt-2 relative z-10">— Louie Sanchez, Loyal Customer</p>
                 </div>
               </div>
             </div>
@@ -252,7 +250,7 @@ export default function Home() {
 
         {/* Pricing Section */}
         <section id="pricing" className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="container">
+          <div className="container mx-auto px-4 max-w-7xl">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Pricing</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               Choose the perfect package for your vehicle's needs
@@ -263,7 +261,7 @@ export default function Home() {
                 <Card className="border-none shadow-lg relative bg-white overflow-hidden h-full transform transition-transform duration-300 group-hover:-translate-y-1">
                   <CardHeader className="text-center pb-2">
                     <CardTitle className="text-2xl">Outside/Inside Wash & Clean</CardTitle>
-                    <div className="text-4xl font-bold my-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold my-4 text-gray-900">
                       $100
                     </div>
                     <p className="text-sm text-muted-foreground">(sedan)</p>
@@ -372,7 +370,7 @@ export default function Home() {
                 <Card className="border-none shadow-lg relative bg-white overflow-hidden h-full transform transition-transform duration-300 group-hover:-translate-y-1">
                   <CardHeader className="text-center pb-2">
                     <CardTitle className="text-2xl">Interior Detail</CardTitle>
-                    <div className="text-4xl font-bold my-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold my-4 text-gray-900">
                       $200
                     </div>
                     <p className="text-sm text-muted-foreground">(sedan & no wash included)</p>
@@ -464,7 +462,7 @@ export default function Home() {
                 <Card className="border-none shadow-lg relative bg-white overflow-hidden h-full transform transition-transform duration-300 group-hover:-translate-y-1">
                   <CardHeader className="text-center pb-2">
                     <CardTitle className="text-2xl">Exterior Detail</CardTitle>
-                    <div className="text-4xl font-bold my-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold my-4 text-gray-900">
                       $200
                     </div>
                     <p className="text-sm text-muted-foreground">(sedan & no interior cleaning)</p>
@@ -559,7 +557,7 @@ export default function Home() {
                   </div>
                   <CardHeader className="text-center pb-2 pt-10">
                     <CardTitle className="text-2xl">Full Detail</CardTitle>
-                    <div className="text-4xl font-bold my-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold my-4 text-gray-900">
                       $350
                     </div>
                     <p className="text-sm text-muted-foreground">(sedan)</p>
@@ -651,7 +649,7 @@ export default function Home() {
 
         {/* Why Choose Us Section */}
         <section id="why-us" className="py-20 relative overflow-hidden">
-          <div className="container relative">
+          <div className="container mx-auto px-4 max-w-7xl relative">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Why Choose Us</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               We're committed to providing the best car wash experience
@@ -703,7 +701,7 @@ export default function Home() {
 
         {/* Contact Section */}
         <section id="contact" className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="container">
+          <div className="container mx-auto px-4 max-w-7xl">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Contact Us</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               Have questions or ready to schedule? Get in touch with us today
@@ -712,25 +710,18 @@ export default function Home() {
               <div>
                 <div className="bg-white p-8 shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300">
                   <div className="relative z-10">
-                    <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                      Business Hours
-                    </h3>
-                    <div className="space-y-2 mb-8">
-                      <div className="flex justify-between">
-                        <span>Monday - Friday</span>
-                        <span className="font-medium">8:00 AM - 7:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Saturday</span>
-                        <span className="font-medium">8:00 AM - 6:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Sunday</span>
-                        <span className="font-medium">9:00 AM - 5:00 PM</span>
-                      </div>
-                    </div>
-
-                    <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <WaterButton
+                      className="w-full mb-8"
+                      onClick={() => {
+                        const element = document.getElementById("contact-form");
+                        element?.scrollIntoView({ behavior: "smooth", block: "center" });
+                        element?.classList.add("highlight-pulse");
+                        setTimeout(() => element?.classList.remove("highlight-pulse"), 2000);
+                      }}
+                    >
+                      Book An Appointment
+                    </WaterButton>
+                    <h3 className="text-xl font-bold mb-4 text-gray-900">
                       Location
                     </h3>
                     <address className="not-italic mb-4 flex items-center">
@@ -749,12 +740,11 @@ export default function Home() {
                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                       </svg>
-                      123 Wash Street
+                      Servicing Southern California
                       <br />
-                      Anytown, ST 12345
                     </address>
 
-                    <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <h3 className="text-xl font-bold mb-4 text-gray-900">
                       Contact Information
                     </h3>
                     <div className="space-y-2">
@@ -791,7 +781,7 @@ export default function Home() {
                           <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                         </svg>
-                        Email: info@numberoneultrashine.com
+                        Email: 1ultrashine@gmail.com
                       </p>
                     </div>
                   </div>
@@ -799,11 +789,27 @@ export default function Home() {
               </div>
 
               <div>
-                <div className="bg-white p-8 shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                <div id="contact-form" className="bg-white p-8 shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300">
                   <div className="relative z-10">
-                    <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    <h3 className="text-xl font-bold mb-4 text-gray-900">
                       Send Us a Message
                     </h3>
+                    <style jsx>{`
+                      @keyframes simplePulse {
+                        0% {
+                          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3);
+                        }
+                        50% {
+                          box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+                        }
+                        100% {
+                          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+                        }
+                      }
+                      :global(.highlight-pulse) {
+                        animation: simplePulse 2.5s ease-in-out;
+                      }
+                    `}</style>
                     <ContactForm />
                   </div>
                 </div>
@@ -816,34 +822,11 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-blue-900 to-cyan-900 text-white py-12 relative overflow-hidden">
         <BubbleBackground small />
-        <div className="container relative z-10">
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-6 md:mb-0">
               <Droplets className="h-6 w-6 text-blue-400" />
               <span className="text-xl font-bold">Number One Ultra Shine</span>
-            </div>
-            <div className="flex gap-6 mb-6 md:mb-0">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="hover:text-blue-400 transition-colors transform hover:scale-110 transition-transform duration-300"
-              >
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a
-                href="#"
-                aria-label="Twitter"
-                className="hover:text-blue-400 transition-colors transform hover:scale-110 transition-transform duration-300"
-              >
-                <Twitter className="h-6 w-6" />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="hover:text-blue-400 transition-colors transform hover:scale-110 transition-transform duration-300"
-              >
-                <Instagram className="h-6 w-6" />
-              </a>
             </div>
           </div>
           <div className="border-t border-blue-800/50 mt-8 pt-8 text-center text-blue-200">
