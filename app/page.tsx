@@ -1,7 +1,9 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   Droplets,
   Car,
@@ -10,70 +12,165 @@ import {
   Clock,
   Leaf,
   ShieldCheck,
+  Phone,
+  MapPin,
+  Mail,
 } from "lucide-react"
 import { BubbleBackground } from "@/components/bubble-background"
 import { WaterButton } from "@/components/water-button"
 import { WaveDivider } from "@/components/wave-divider"
 import { ContactForm } from "@/components/contact-form"
+import { PromoModal } from "@/components/promo-modal"
+
+const heroImages = [
+  { src: "/beautiful-car-washing-service.jpg", alt: "Professional vehicle detailing" },
+  { src: "/car-wash-detailing-station.jpg", alt: "Auto detailing station" },
+  { src: "/beautiful-car-interior-clean-up-service.jpg", alt: "Interior restoration service" },
+]
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const [heroIndex, setHeroIndex] = useState(0)
+
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual"
+    }
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setHeroIndex((i) => (i + 1) % heroImages.length)
+    }, 5000)
+    return () => window.clearInterval(id)
+  }, [])
   return (
     <div className="flex min-h-screen flex-col">
+      <PromoModal />
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="relative h-10 w-10 overflow-hidden flex items-center justify-center bg-gradient-to-r from-blue-500 to-cyan-400 rounded-md">
-              <Droplets className="h-6 w-6 text-white" />
+      <header className="sticky top-0 z-50 w-full">
+        {/* Top utility strip */}
+        <div className="hidden md:block bg-gradient-to-r from-blue-700 via-cyan-600 to-blue-700 text-white">
+          <div className="container mx-auto px-4 max-w-7xl flex h-9 items-center justify-between text-xs">
+            <div className="flex items-center gap-6">
+              <a
+                href="https://maps.google.com/?q=525+E+Route+66+Glendora+CA+91740"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-cyan-100 transition-colors"
+              >
+                <MapPin className="h-3.5 w-3.5" />
+                525 E Route 66, Glendora, CA 91740
+              </a>
+              <a href="tel:6266294916" className="flex items-center gap-1.5 hover:text-cyan-100 transition-colors">
+                <Phone className="h-3.5 w-3.5" />
+                (626) 629-4916
+              </a>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent">
-              Number One Ultra Shine
+            <span className="font-semibold tracking-[0.2em] uppercase text-cyan-50">
+              Detailing Excellence Since 1995
             </span>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#services" className="text-sm font-medium hover:text-blue-500 transition-colors relative group">
-              Services
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#about" className="text-sm font-medium hover:text-blue-500 transition-colors relative group">
-              About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#pricing" className="text-sm font-medium hover:text-blue-500 transition-colors relative group">
-              Pricing
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#why-us" className="text-sm font-medium hover:text-blue-500 transition-colors relative group">
-              Why Us
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#contact" className="text-sm font-medium hover:text-blue-500 transition-colors relative group">
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
-            </a>
-            <div className="inline-block">
-              <WaterButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-                Book Now
-              </WaterButton>
+        </div>
+
+        {/* Main nav */}
+        <div className="bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-md">
+          <div className="container mx-auto px-4 max-w-7xl flex h-20 items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative h-12 w-12 flex items-center justify-center bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 rounded-full shadow-lg shadow-blue-500/30 ring-2 ring-white">
+                <Droplets className="h-6 w-6 text-white drop-shadow" />
+                <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-yellow-400 rounded-full animate-pulse ring-2 ring-white"></span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl md:text-2xl font-extrabold leading-tight bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 bg-clip-text text-transparent">
+                  Number One Ultra Shine
+                </span>
+                <span className="hidden sm:block text-[10px] uppercase tracking-[0.25em] text-blue-600/80 font-semibold">
+                  Premium Auto Detailing
+                </span>
+              </div>
             </div>
-          </nav>
-          <button className="md:hidden p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <path d="M3 12h18M3 6h18M3 18h18"></path>
-            </svg>
-            <span className="sr-only">Toggle menu</span>
-          </button>
+            <nav className="hidden md:flex items-center gap-7">
+              <a href="#services" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors relative group">
+                Services
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+              </a>
+              <a href="#about" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors relative group">
+                About
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+              </a>
+              <a href="#pricing" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors relative group">
+                Pricing
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+              </a>
+              <a href="#why-us" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors relative group">
+                Why Us
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+              </a>
+              <a href="#contact" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors relative group">
+                Contact
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+              </a>
+              <div className="inline-block ml-2">
+                <WaterButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+                  Book Now
+                </WaterButton>
+              </div>
+            </nav>
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <button className="md:hidden p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5"
+                >
+                  <path d="M3 12h18M3 6h18M3 18h18"></path>
+                </svg>
+                <span className="sr-only">Toggle menu</span>
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <nav className="flex flex-col gap-4 mt-8">
+                <a href="#services" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                  Services
+                </a>
+                <a href="#about" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                  About
+                </a>
+                <a href="#pricing" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                  Pricing
+                </a>
+                <a href="#why-us" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                  Why Us
+                </a>
+                <a href="#contact" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                  Contact
+                </a>
+                <div className="mt-4">
+                  <WaterButton
+                    onClick={() => {
+                      closeMobileMenu()
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                    }}
+                  >
+                    Book Now
+                  </WaterButton>
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
+          </div>
+          <div className="h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500"></div>
         </div>
       </header>
 
@@ -81,22 +178,35 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/beautiful-car-washing-service.jpg"
-              alt="Beautiful Car Washing Service"
-              fill
-              className="object-cover brightness-[0.8]"
-              priority
-            />
+            {heroImages.map((img, i) => (
+              <Image
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
+                fill
+                className={`object-cover brightness-[0.8] transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
+                priority={i === 0}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-cyan-900/20"></div>
+          </div>
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {heroImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setHeroIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${i === heroIndex ? "w-8 bg-white" : "w-2 bg-white/50 hover:bg-white/80"}`}
+              />
+            ))}
           </div>
           <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center text-white">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-                Professional Car Wash & Detailing
+                Professional Vehicle Detailing & Maintenance
               </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
-                Experience the art of car care with our expert wash and precision detailing services.
+                Experience 30+ years of auto-detailing with our expert & precision detailing services.
               </p>
               <WaterButton
                 size="lg"
@@ -116,19 +226,31 @@ export default function Home() {
         {/* Services Section */}
         <section id="services" className="py-20 bg-gradient-to-b from-blue-50 to-white">
           <div className="container mx-auto px-4 max-w-7xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Services</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              We offer a comprehensive range of car washing and detailing services to keep your vehicle looking its best
+              We offer a comprehensive range of car detailing and maintenance services to keep your vehicle looking its best.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Car className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
-                  <CardTitle>Exterior Wash</CardTitle>
+                  <CardTitle>Exterior Maintenance & Cleaning</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    Complete exterior cleaning with premium soaps and spot-free rinse technology.
+                    Routine exterior washes and upkeep that keep paint clean, protected, and looking sharp between details.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
+                <CardHeader className="text-center">
+                  <ShieldCheck className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
+                  <CardTitle>Paint Decontamination & Shield Prep</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-center">
+                    Iron, tar, and fallout removal followed by surface prep for wax, sealant, or ceramic coating.
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -136,11 +258,11 @@ export default function Home() {
               <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Sparkles className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
-                  <CardTitle>Interior Detailing</CardTitle>
+                  <CardTitle>Interior Restoration & Sanitization</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    Deep cleaning of all interior surfaces, vacuuming, and protection treatments.
+                    Deep shampoo, extraction, and sanitization that brings worn interiors back to life.
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -148,26 +270,22 @@ export default function Home() {
               <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
                 <CardHeader className="text-center">
                   <Droplets className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
-                  <CardTitle>Waxing & Polishing</CardTitle>
+                  <CardTitle>Heavy Paint Correction</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    Premium wax application for long-lasting shine and paint protection.
+                    Multi-stage cutting and polishing to remove swirls, scratches, and oxidation for a glass-like finish.
                   </CardDescription>
                 </CardContent>
               </Card>
-
-              <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white hover:bg-gradient-to-b hover:from-blue-50/50 hover:to-cyan-50/50 overflow-hidden group">
-                <CardHeader className="text-center">
-                  <CalendarClock className="w-12 h-12 mx-auto text-blue-500 mb-2 transition-transform duration-300 group-hover:scale-110" />
-                  <CardTitle>Monthly Plans</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center">
-                    Save with our subscription plans for regular maintenance and cleaning.
-                  </CardDescription>
-                </CardContent>
-              </Card>
+            </div>
+            <div className="flex justify-center mt-12">
+              <WaterButton
+                size="lg"
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Book Now
+              </WaterButton>
             </div>
           </div>
         </section>
@@ -218,22 +336,22 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-blue-500 to-cyan-400 p-4 shadow-lg z-20">
-                    <p className="text-white font-bold">10+ Years Experience</p>
+                    <p className="text-white font-bold">30+ Years Experience</p>
                   </div>
                 </div>
               </div>
               <div className="md:w-1/2">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                  About Number One Ultra Shine
+                  About #1 Ultra Shine
                 </h2>
                 <p className="text-lg mb-6">
-                  Founded with a passion for automotive care, Number One Ultra Shine has been providing premium car
-                  washing and detailing services to our community for years. We take pride in our attention to detail
-                  and commitment to customer satisfaction.
+                  Founded in 1995 with a passion, Number One Ultra Shine has been providing high-quality car
+                  maintenance and detailing services to our community. We take pride in our attention to detail &
+                  commitment to customer satisfaction.
                 </p>
                 <p className="text-lg mb-6">
-                  Our team of experienced professionals uses only the highest quality products and equipment to ensure
-                  your vehicle receives the care it deserves.
+                  Our experienced professionals use only the highest quality products & equipment to ensure your
+                  vehicle receives the care it deserves.
                 </p>
                 <div className="bg-gradient-to-r from-blue-100 to-cyan-100 p-6 border-l-4 border-blue-500 shadow-inner relative overflow-hidden">
                   <p className="italic relative z-10">
@@ -251,7 +369,7 @@ export default function Home() {
         {/* Pricing Section */}
         <section id="pricing" className="py-20 bg-gradient-to-b from-blue-50 to-white">
           <div className="container mx-auto px-4 max-w-7xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Pricing</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Pricing</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               Choose the perfect package for your vehicle's needs
             </p>
@@ -359,7 +477,7 @@ export default function Home() {
                       className="w-full"
                       onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     >
-                      Select Package
+                      Book Now
                     </WaterButton>
                   </CardContent>
                 </Card>
@@ -451,7 +569,7 @@ export default function Home() {
                       className="w-full"
                       onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     >
-                      Select Package
+                      Book Now
                     </WaterButton>
                   </CardContent>
                 </Card>
@@ -543,7 +661,7 @@ export default function Home() {
                       className="w-full"
                       onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     >
-                      Select Package
+                      Book Now
                     </WaterButton>
                   </CardContent>
                 </Card>
@@ -638,7 +756,7 @@ export default function Home() {
                       className="w-full"
                       onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     >
-                      Select Package
+                      Book Now
                     </WaterButton>
                   </CardContent>
                 </Card>
@@ -648,55 +766,81 @@ export default function Home() {
         </section>
 
         {/* Why Choose Us Section */}
-        <section id="why-us" className="py-20 relative overflow-hidden">
+        <section id="why-us" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-blue-50/40 to-white">
+          <div className="absolute top-0 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 -left-32 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
           <div className="container mx-auto px-4 max-w-7xl relative">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Why Choose Us</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              We're committed to providing the best car wash experience
-            </p>
+            <div className="text-center mb-16">
+              <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-bold uppercase tracking-[0.25em] rounded-full mb-4 shadow-sm">
+                The #1 Ultra Shine Difference
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent">
+                Why Choose Us
+              </h2>
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto text-lg">
+                Three decades of craft, real care, and a guarantee that backs every detail.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+              <div className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                <span className="absolute -top-2 right-4 text-8xl font-black text-emerald-200/70 select-none leading-none pointer-events-none">01</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 to-teal-50/0 group-hover:from-emerald-50/60 group-hover:to-teal-50/40 transition-colors duration-500"></div>
                 <div className="relative z-10">
-                  <div className="relative w-20 h-20 mx-auto mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-full transform -rotate-6"></div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-full flex items-center justify-center shadow-lg">
-                      <Leaf className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-emerald-500/40"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center shadow-xl">
+                      <Leaf className="w-10 h-10 text-white drop-shadow" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-center">Eco-Friendly</h3>
-                  <p className="text-center">
+                  <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">
+                    Eco-Friendly
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
                     We use biodegradable, environmentally safe cleaning products and water reclamation systems to
                     minimize our environmental impact.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+              <div className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-400"></div>
+                <span className="absolute -top-2 right-4 text-8xl font-black text-blue-200/70 select-none leading-none pointer-events-none">02</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-indigo-50/0 group-hover:from-blue-50/60 group-hover:to-indigo-50/40 transition-colors duration-500"></div>
                 <div className="relative z-10">
-                  <div className="relative w-20 h-20 mx-auto mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-lg transform rotate-45 scale-90"></div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-lg flex items-center justify-center shadow-lg">
-                      <Clock className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-2xl -rotate-6 group-hover:-rotate-12 transition-transform duration-500 shadow-lg shadow-blue-500/40"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-400 rounded-2xl flex items-center justify-center shadow-xl">
+                      <Clock className="w-10 h-10 text-white drop-shadow" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-center">Fast Service</h3>
-                  <p className="text-center">
+                  <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
+                    Fast Service
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
                     Our efficient process ensures you get back on the road quickly without compromising on quality. Most
                     services completed in under 30 minutes.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-white p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+              <div className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-orange-400"></div>
+                <span className="absolute -top-2 right-4 text-8xl font-black text-amber-200/70 select-none leading-none pointer-events-none">03</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/0 to-orange-50/0 group-hover:from-amber-50/60 group-hover:to-orange-50/40 transition-colors duration-500"></div>
                 <div className="relative z-10">
-                  <div className="relative w-20 h-20 mx-auto mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-[30px] transform -rotate-12"></div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-[30px] flex items-center justify-center shadow-lg">
-                      <ShieldCheck className="w-10 h-10 text-white" />
+                  <div className="relative w-20 h-20 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-amber-500/40"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-400 rounded-2xl flex items-center justify-center shadow-xl">
+                      <ShieldCheck className="w-10 h-10 text-white drop-shadow" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-center">Satisfaction Guaranteed</h3>
-                  <p className="text-center">
+                  <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-amber-700 to-orange-600 bg-clip-text text-transparent">
+                    Satisfaction Guaranteed
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
                     If you're not completely satisfied with our service, we'll make it right. Your satisfaction is our
                     top priority.
                   </p>
@@ -709,114 +853,110 @@ export default function Home() {
         <WaveDivider flip={true} />
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Contact Us</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Have questions or ready to schedule? Get in touch with us today
-            </p>
-            <div className="max-w-2xl mx-auto">
-              <div className="bg-white p-8 shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300 mb-8">
-                <div className="relative z-10">
-                  <WaterButton
-                    className="w-full mb-8"
-                    onClick={() => {
-                      const element = document.getElementById("contact-form");
-                      element?.scrollIntoView({ behavior: "smooth", block: "center" });
-                      element?.classList.add("highlight-pulse");
-                      setTimeout(() => element?.classList.remove("highlight-pulse"), 2000);
-                    }}
-                  >
-                    Book An Appointment
-                  </WaterButton>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
-                    Location
-                  </h3>
-                  <address className="not-italic mb-4 flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 text-blue-500 mr-2"
-                    >
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Servicing Southern California
-                  </address>
+        <section id="contact" className="py-24 relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-blue-50/60">
+          <div className="absolute top-20 -left-32 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-20 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
-                    Contact Information
-                  </h3>
-                  <div className="space-y-2">
-                    <p className="flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-5 w-5 text-blue-500 mr-2"
-                      >
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                      </svg>
-                      Phone: (626) 629-4916
-                    </p>
-                    <p className="flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-5 w-5 text-blue-500 mr-2"
-                      >
-                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                      </svg>
-                      Email: 1ultrashine@gmail.com
-                    </p>
-                  </div>
+          <div className="container mx-auto px-4 max-w-7xl relative">
+            <div className="text-center mb-16">
+              <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-bold uppercase tracking-[0.25em] rounded-full mb-4 shadow-sm">
+                Let's Connect
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent">
+                Contact Us
+              </h2>
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto text-lg">
+                Have questions or ready to schedule? Drop by, give us a call, or send a message — we'd love to help.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <div className="relative bg-white p-8 rounded-2xl shadow-xl overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500"></div>
+                <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
+                  Visit or Reach Out
+                </h3>
+
+                <div className="space-y-3 mb-8">
+                  <a
+                    href="https://maps.google.com/?q=525+E+Route+66+Glendora+CA+91740"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 hover:bg-blue-50/60 -mx-2 px-2 py-3 rounded-lg transition-colors"
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+                      <MapPin className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-600/80 mb-0.5">Visit Us</p>
+                      <p className="text-gray-900 font-semibold">525 E Route 66</p>
+                      <p className="text-gray-600 text-sm">Glendora, CA 91740</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="tel:6266294916"
+                    className="flex items-start gap-4 hover:bg-emerald-50/60 -mx-2 px-2 py-3 rounded-lg transition-colors"
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                      <Phone className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600/80 mb-0.5">Call Us</p>
+                      <p className="text-gray-900 font-semibold text-lg">(626) 629-4916</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="mailto:1ultrashine@gmail.com"
+                    className="flex items-start gap-4 hover:bg-amber-50/60 -mx-2 px-2 py-3 rounded-lg transition-colors"
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-400 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30">
+                      <Mail className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600/80 mb-0.5">Email Us</p>
+                      <p className="text-gray-900 font-semibold break-all">1ultrashine@gmail.com</p>
+                    </div>
+                  </a>
                 </div>
+
+                <WaterButton
+                  className="w-full"
+                  onClick={() => {
+                    const element = document.getElementById("contact-form");
+                    element?.scrollIntoView({ behavior: "smooth", block: "center" });
+                    element?.classList.add("highlight-pulse");
+                    setTimeout(() => element?.classList.remove("highlight-pulse"), 2000);
+                  }}
+                >
+                  Book An Appointment
+                </WaterButton>
               </div>
 
-              <div id="contact-form" className="bg-white p-8 shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300">
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
-                    Send Us a Message
-                  </h3>
-                  <style jsx>{`
-                    @keyframes simplePulse {
-                      0% {
-                        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3);
-                      }
-                      50% {
-                        box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
-                      }
-                      100% {
-                        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-                      }
+              <div id="contact-form" className="relative bg-white p-8 rounded-2xl shadow-xl overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400"></div>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
+                  Send Us a Message
+                </h3>
+                <p className="text-gray-500 text-sm mb-6">Drop us a line and we'll get back to you within 24 hours.</p>
+                <style jsx>{`
+                  @keyframes simplePulse {
+                    0% {
+                      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3);
                     }
-                    :global(.highlight-pulse) {
-                      animation: simplePulse 2.5s ease-in-out;
+                    50% {
+                      box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
                     }
-                  `}</style>
-                  <ContactForm />
-                </div>
+                    100% {
+                      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+                    }
+                  }
+                  :global(.highlight-pulse) {
+                    animation: simplePulse 2.5s ease-in-out;
+                  }
+                `}</style>
+                <ContactForm />
               </div>
             </div>
           </div>
