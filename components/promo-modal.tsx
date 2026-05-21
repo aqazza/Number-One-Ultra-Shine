@@ -20,7 +20,7 @@ export function PromoModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md border-none p-0 overflow-hidden">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-md border-none p-0 overflow-hidden rounded-xl">
         <div className="bg-gradient-to-br from-blue-500 to-cyan-400 p-6 text-white text-center">
           <Sparkles className="w-10 h-10 mx-auto mb-2" />
           <DialogHeader>

@@ -31,6 +31,13 @@ const heroImages = [
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const closeMobileMenu = () => setMobileMenuOpen(false)
+  const handleMobileNavClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault()
+    setMobileMenuOpen(false)
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 320)
+  }
   const [heroIndex, setHeroIndex] = useState(0)
 
   useEffect(() => {
@@ -141,26 +148,28 @@ export default function Home() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <nav className="flex flex-col gap-4 mt-8">
-                <a href="#services" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                <a href="#services" onClick={(e) => handleMobileNavClick(e, "services")} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
                   Services
                 </a>
-                <a href="#about" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                <a href="#about" onClick={(e) => handleMobileNavClick(e, "about")} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
                   About
                 </a>
-                <a href="#pricing" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                <a href="#pricing" onClick={(e) => handleMobileNavClick(e, "pricing")} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
                   Pricing
                 </a>
-                <a href="#why-us" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                <a href="#why-us" onClick={(e) => handleMobileNavClick(e, "why-us")} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
                   Why Us
                 </a>
-                <a href="#contact" onClick={closeMobileMenu} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
+                <a href="#contact" onClick={(e) => handleMobileNavClick(e, "contact")} className="text-base font-medium hover:text-blue-500 transition-colors py-2">
                   Contact
                 </a>
                 <div className="mt-4">
                   <WaterButton
                     onClick={() => {
-                      closeMobileMenu()
-                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                      setMobileMenuOpen(false)
+                      setTimeout(() => {
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                      }, 320)
                     }}
                   >
                     Book Now
@@ -335,8 +344,9 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-blue-500 to-cyan-400 p-4 shadow-lg z-20">
-                    <p className="text-white font-bold">30+ Years Experience</p>
+                  <div className="absolute -bottom-5 -right-3 bg-gradient-to-br from-blue-500 to-cyan-400 px-5 py-3 shadow-xl shadow-blue-500/40 z-20 -rotate-3 rounded-lg ring-2 ring-white">
+                    <p className="text-white text-3xl md:text-4xl font-black leading-none drop-shadow-sm">30+</p>
+                    <p className="text-white/95 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mt-1">Years Experience</p>
                   </div>
                 </div>
               </div>
