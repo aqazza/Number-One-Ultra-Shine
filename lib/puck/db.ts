@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless"
-import type { Data } from "@measured/puck"
+import type { PageData } from "@/puck.config"
 import { ABOUT_SEED } from "./about-seed"
 
 // Puck page storage on Neon Postgres (Vercel's filesystem is ephemeral, so
@@ -28,11 +28,11 @@ function ensureTable(sql: NonNullable<ReturnType<typeof client>>) {
   return ensured
 }
 
-export async function getPage(path: string): Promise<Data | null> {
+export async function getPage(path: string): Promise<PageData | null> {
   const sql = client()
   if (!sql) return null
   await ensureTable(sql)
-  const rows = (await sql`SELECT data FROM pages WHERE path = ${path}`) as { data: Data }[]
+  const rows = (await sql`SELECT data FROM pages WHERE path = ${path}`) as { data: PageData }[]
   if (rows.length > 0) return rows[0].data
   // First read ever for /about: seed the table with the current live content
   // so the editor starts from exactly what's published today.
@@ -43,7 +43,7 @@ export async function getPage(path: string): Promise<Data | null> {
   return null
 }
 
-export async function savePage(path: string, data: Data): Promise<void> {
+export async function savePage(path: string, data: PageData): Promise<void> {
   const sql = client()
   if (!sql) throw new Error("DATABASE_URL is not configured")
   await ensureTable(sql)

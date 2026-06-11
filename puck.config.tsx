@@ -1,4 +1,4 @@
-import type { Config } from "@measured/puck"
+import type { Config, Data } from "@measured/puck"
 import {
   AboutHero,
   StatsBand,
@@ -25,13 +25,16 @@ import {
 
 type Hideable = { hidden: "show" | "hide" }
 
-type Blocks = {
+export type Blocks = {
   AboutHero: Hideable & AboutHeroProps
   StatsBand: Hideable & StatsBandProps
   Standards: Hideable & StandardsProps
   Timeline: Hideable & TimelineProps
   FamilyNote: Hideable & FamilyNoteProps
 }
+
+// The Puck document shape for pages built from these blocks.
+export type PageData = Data<Blocks>
 
 const HIDDEN_FIELD = {
   type: "radio" as const,

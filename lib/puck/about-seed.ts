@@ -1,10 +1,10 @@
-import type { Data } from "@measured/puck"
+import type { PageData } from "@/puck.config"
 import { ABOUT_HERO, STATS_BAND, STANDARDS, TIMELINE, FAMILY_NOTE } from "./about-content"
 
 // Initial Puck document for /about — exactly the current live page, in order.
 // Used as the database seed AND as the render fallback when no row (or no
 // DATABASE_URL) exists, which keeps the public page identical either way.
-export const ABOUT_SEED: Data = {
+export const ABOUT_SEED: PageData = {
   root: { props: {} },
   content: [
     { type: "AboutHero", props: { id: "AboutHero-seed", hidden: "show", ...ABOUT_HERO } },
