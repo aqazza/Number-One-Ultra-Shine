@@ -29,15 +29,22 @@ function GoogleG({ size = 18 }: { size?: number }) {
   )
 }
 
-function GStars({ n = 5, size = 16 }: { n?: number; size?: number }) {
+function GStars({ value = 5, size = 16 }: { value?: number; size?: number }) {
   const star = "M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"
+  const pct = Math.max(0, Math.min(100, (value / 5) * 100))
+  const row = (on: boolean) =>
+    Array.from({ length: 5 }).map((_, i) => (
+      <svg key={i} viewBox="0 0 24 24" width={size} height={size} className={on ? "on" : ""}>
+        <path d={star} />
+      </svg>
+    ))
   return (
-    <div className="g-stars" aria-label={n + " star rating"}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} viewBox="0 0 24 24" width={size} height={size} className={i < n ? "on" : ""}>
-          <path d={star} />
-        </svg>
-      ))}
+    <div className="g-stars" aria-label={value + " star rating"}>
+      {row(false)}
+      {/* gold overlay clipped to the rating for an accurate partial star */}
+      <div className="g-stars-fill" style={{ width: pct + "%" }}>
+        {row(true)}
+      </div>
     </div>
   )
 }
@@ -68,8 +75,8 @@ export function Reviews() {
         <Reveal tag="div">
           <div className="g-summary">
             <div className="g-score">
-              <div className="num">4.0</div>
-              <GStars n={4} size={20} />
+              <div className="num">4.6</div>
+              <GStars value={4.6} size={20} />
               <div className="cnt">Based on 381 reviews</div>
             </div>
             <div className="g-src">
@@ -108,7 +115,7 @@ export function Reviews() {
                         <GoogleG size={20} />
                       </span>
                     </div>
-                    <GStars n={5} size={16} />
+                    <GStars value={5} size={16} />
                     <p className="q">{r.q}</p>
                   </div>
                 </div>

@@ -270,10 +270,7 @@ function FamilyNote() {
               us your keys and you&apos;re trusting family. We don&apos;t take that lightly.
             </p>
             <div className="fam-sign">
-              {/* TODO: replace with the real owner's name, or swap for a scanned signature:
-                  <img className="fam-sign-img" src="/photos/signature.png" alt="Owner's signature" /> */}
-              <span className="fam-sign-name">Amr Moubasher</span>
-              <span className="fam-sign-role">Second-generation owner</span>
+              <span className="fam-sign-name">From our team</span>
             </div>
           </div>
         </Reveal>

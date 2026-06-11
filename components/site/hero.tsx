@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { Btn, Eyebrow } from "./ui"
 
 const HERO_VIDEOS = [
@@ -60,8 +61,7 @@ export function Hero() {
             to a <span className="accent">flawless shine.</span>
           </h1>
           <p className="lead">
-            Thirty years of hand-finished detailing in Glendora: interior, exterior, full details
-            and ceramic coating, done with care.
+            Thirty years of hand-finished detailing on Route 66 in Glendora, done with care.
           </p>
           <div className="cta-row">
             <Btn variant="primary" size="lg" href="/contact" icon="phone">
@@ -71,6 +71,15 @@ export function Hero() {
               View Services
             </Btn>
           </div>
+          <nav className="hero-services" aria-label="Our services">
+            <Link href="/services/interior-detailing">Interior</Link>
+            <span className="sep" aria-hidden="true" />
+            <Link href="/services/exterior">Exterior</Link>
+            <span className="sep" aria-hidden="true" />
+            <Link href="/services/full-details">Full Details</Link>
+            <span className="sep" aria-hidden="true" />
+            <Link href="/services/ceramic-coating">Ceramic Coating</Link>
+          </nav>
         </div>
       </div>
       <div className="dots">

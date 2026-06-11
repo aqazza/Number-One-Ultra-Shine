@@ -5,8 +5,19 @@ import Link from "next/link"
 import { Icon } from "./icon"
 import { Btn } from "./ui"
 
-export const NAV = [
-  { label: "Services", href: "/#services" },
+type NavItem = { label: string; href: string; children?: { label: string; href: string }[] }
+
+export const NAV: NavItem[] = [
+  {
+    label: "Services",
+    href: "/#services",
+    children: [
+      { label: "Interior Detailing", href: "/services/interior-detailing" },
+      { label: "Exterior", href: "/services/exterior" },
+      { label: "Full Details", href: "/services/full-details" },
+      { label: "Ceramic Coating", href: "/services/ceramic-coating" },
+    ],
+  },
   { label: "Gallery", href: "/gallery" },
   { label: "About", href: "/about" },
   { label: "Reviews", href: "/#reviews" },
@@ -55,15 +66,34 @@ export function Header({ active }: { active?: string }) {
         <div className="wrap">
           <Brand />
           <nav className="nav">
-            {NAV.map((n) => (
-              <Link
-                key={n.label}
-                className={"link" + (active === n.label ? " active" : "")}
-                href={n.href}
-              >
-                {n.label}
-              </Link>
-            ))}
+            {NAV.map((n) =>
+              n.children ? (
+                <div className="nav-item has-menu" key={n.label}>
+                  <Link
+                    className={"link" + (active === n.label ? " active" : "")}
+                    href={n.href}
+                  >
+                    {n.label}
+                    <Icon name="chevron-down" size={15} />
+                  </Link>
+                  <div className="nav-menu">
+                    {n.children.map((c) => (
+                      <Link key={c.label} href={c.href}>
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={n.label}
+                  className={"link" + (active === n.label ? " active" : "")}
+                  href={n.href}
+                >
+                  {n.label}
+                </Link>
+              ),
+            )}
             <Btn variant="primary" size="sm" href="/contact" icon="phone">
               Book Now
             </Btn>
@@ -80,9 +110,20 @@ export function Header({ active }: { active?: string }) {
             <Icon name="x" size={24} />
           </button>
           {NAV.map((n) => (
-            <Link key={n.label} href={n.href} onClick={() => setOpen(false)}>
-              {n.label}
-            </Link>
+            <div className="sheet-group" key={n.label}>
+              <Link href={n.href} onClick={() => setOpen(false)}>
+                {n.label}
+              </Link>
+              {n.children ? (
+                <div className="sheet-sub">
+                  {n.children.map((c) => (
+                    <Link key={c.label} href={c.href} onClick={() => setOpen(false)}>
+                      {c.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           ))}
           <div style={{ marginTop: 14 }}>
             <Btn variant="primary" href="/contact" icon="phone">

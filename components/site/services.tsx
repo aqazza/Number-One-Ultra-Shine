@@ -9,13 +9,14 @@ import { Reveal } from "./reveal"
 const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo."
 
-type Sub = { nm: string; ds: string }
+type Sub = { nm: string; ds: string; featured?: boolean }
 type Service = {
   icon: string
   title: string
   img: string
   blurb: string
   note?: string
+  href: string
   subs: Sub[]
 }
 
@@ -24,52 +25,60 @@ const SERVICES: Service[] = [
     icon: "sparkles",
     title: "Interior Detailing",
     img: "/photos/interior-cleanup.webp",
+    href: "/services/interior-detailing",
     blurb:
       "A complete cabin reset: vacuumed, shampooed, and hand-wiped until every surface looks and feels new.",
     subs: [
       { nm: "Interior Express", ds: "Vacuum, full wipe-down & glass" },
       { nm: "Seats Shampoo", ds: "Deep shampoo & hot-water extraction" },
       { nm: "Carpet Shampoo", ds: "Carpets, mats & footwells" },
-      { nm: "Full Interior Detail", ds: "The complete cabin reset, top to bottom" },
+      {
+        nm: "Full Interior Detail",
+        ds: "Interior Express, Seats Shampoo & Carpet Shampoo combined",
+        featured: true,
+      },
     ],
   },
   {
     icon: "car",
     title: "Exterior",
     img: "/photos/exterior-wash.webp",
+    href: "/services/exterior",
     blurb:
       "Decontaminate, correct, and protect your paint for a deep, mirror-like finish that lasts.",
     subs: [
       { nm: "Clay & Spray Wax", ds: "Decontaminate & quick-protect the paint" },
       { nm: "Clay & Hand Wax", ds: "Clay bar followed by a hand-applied wax" },
-      { nm: "Full Exterior Detail", ds: "Wash, clay, polish & protect" },
-      { nm: "Paint Correction (Polishing)", ds: "Multi-stage cut to remove swirls & oxidation" },
+      { nm: "Full Exterior Detail", ds: "Wash, clay, polish & protect", featured: true },
+      { nm: "Paint Correction (Polishing)", ds: "Multi-stage cut to remove swirls & oxidation", featured: true },
     ],
   },
   {
     icon: "droplets",
     title: "Full Details",
     img: "/photos/detailing-station.webp",
+    href: "/services/full-details",
     note: "Interior + Exterior combined, our most complete package.",
     blurb:
       "Everything we do, in one visit. Interior and exterior services combined for the most complete transformation.",
     subs: [
-      { nm: "Complete Interior Detail", ds: "Every interior service, included" },
-      { nm: "Complete Exterior Detail", ds: "Wash, clay, polish & protect" },
-      { nm: "Premium Clay & Hand Wax", ds: "A deep, hand-finished gloss" },
-      { nm: "Full Interior Shampoo", ds: "Seats, carpets & mats refreshed" },
+      {
+        nm: "Full Interior Detail & Full Exterior Detail",
+        ds: "Everything inside and out, fully detailed in one visit.",
+      },
     ],
   },
   {
     icon: "shield-check",
     title: "Ceramic Coating",
-    img: "/photos/closeup-care-2.webp",
+    img: "/photos/services/ceramic-beading.webp",
+    href: "/services/ceramic-coating",
     note: "A long-term coating, not a wax. Lasting gloss & protection.",
     blurb:
       "A durable ceramic layer that bonds to your paint, with years of gloss, water-beading, and easier washes.",
     subs: [
       { nm: "1-Year Protection", ds: "Entry ceramic coating with strong gloss" },
-      { nm: "3-Year Protection", ds: "Durable multi-layer coating" },
+      { nm: "3-Year Protection", ds: "Durable multi-layer coating", featured: true },
       { nm: "4-Year Protection", ds: "Our longest-lasting ceramic protection" },
     ],
   },
@@ -91,7 +100,9 @@ function ServiceCard({
           <span className="svc-ico">
             <Icon name={svc.icon} size={24} />
           </span>
-          <span className="svc-count">{svc.subs.length} services</span>
+          <span className="svc-count">
+            {svc.subs.length} service{svc.subs.length === 1 ? "" : "s"}
+          </span>
         </div>
         <div className="svc-body">
           <h3>{svc.title}</h3>
@@ -124,7 +135,7 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
   }, [svc, onClose])
   if (!svc) return null
   const stats = [
-    { n: svc.subs.length, l: "Services" },
+    { n: svc.subs.length, l: svc.subs.length === 1 ? "Service" : "Services" },
     { n: "1995", l: "Established" },
     { n: "By hand", l: "Finish" },
     { n: "Soon", l: "Pricing" },
@@ -157,6 +168,9 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
               <Btn variant="secondary" size="lg" href="tel:6266294916" icon="phone-call">
                 (626) 629-4916
               </Btn>
+              <Btn variant="ghost" size="lg" href={svc.href} iconRight="arrow-right">
+                Explore full page
+              </Btn>
             </div>
           </div>
           <div className="so-hero-media">
@@ -176,11 +190,24 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
           <div className="so-label">What&apos;s included</div>
           <div className="so-subs">
             {svc.subs.map((s) => (
-              <div className="so-sub" key={s.nm}>
+              <div
+                className={
+                  "so-sub" +
+                  (s.featured ? " feat" : "") +
+                  (svc.subs.length === 1 ? " solo" : "")
+                }
+                key={s.nm}
+              >
+                {s.featured ? (
+                  <span className="so-feat-star" aria-hidden="true">
+                    <Icon name="star" size={15} />
+                  </span>
+                ) : null}
                 <span className="so-sub-ic">
                   <Icon name="check" size={16} />
                 </span>
                 <div className="so-sub-body">
+                  {s.featured ? <div className="so-fav">Customer Favorite</div> : null}
                   <div className="nm">{s.nm}</div>
                   <div className="ds">{s.ds}</div>
                 </div>
