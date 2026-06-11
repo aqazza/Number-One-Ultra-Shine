@@ -1,0 +1,196 @@
+/* ============================================================
+   NUMBER ONE ULTRA SHINE - Design System Foundations
+   Dark premium "wet gloss" auto-detailing aesthetic.
+   Near-black base · one bright Shine Cyan accent · glossy surfaces.
+   ============================================================ */
+
+/* ---- Fonts -------------------------------------------------
+   Display: Clash Display (Fontshare - the seed brand face)
+   Body/UI: Manrope (Google Fonts)
+   Numeric/spec: Space Mono (Google Fonts) - prices, vehicle specs
+   NOTE: Clash Display is not on Google Fonts; it is loaded from
+   its original source (Fontshare). For fully offline/production
+   builds, self-host the .woff2 files in /fonts and swap these.
+------------------------------------------------------------- */
+/* Loaded via <link> tags in app/layout.tsx (more robust under Next.js than @import). */
+
+:root {
+  /* ---------- Brand / Accent (the single bright accent) ---------- */
+  --shine-cyan:        #2DD9F0;   /* primary accent - CTAs, active states, links */
+  --shine-cyan-bright: #6BE9FB;   /* hover / glow highlight */
+  --shine-cyan-deep:   #109FBC;   /* pressed / darker fills */
+  --shine-ink:         #04222B;   /* text/icon ON the cyan accent */
+  --shine-glow:        rgba(45, 217, 240, 0.40); /* atmospheric glow */
+
+  /* ---------- Near-black surface ramp ---------- */
+  --bg-0:  #08090B;   /* page base - near-black */
+  --bg-1:  #0E1013;   /* section / raised base */
+  --bg-2:  #15181C;   /* card surface */
+  --bg-3:  #1C2026;   /* elevated card / hover surface */
+  --bg-4:  #262B32;   /* popovers, inputs, highest surface */
+
+  /* ---------- Foreground / text ---------- */
+  --fg-1:  #F5F7FA;   /* primary text, headings */
+  --fg-2:  #AEB4BD;   /* body / secondary text */
+  --fg-3:  #767D87;   /* muted captions, meta */
+  --fg-4:  #4A5059;   /* disabled, faint */
+
+  /* ---------- Hairline borders & dividers ---------- */
+  --line-1: rgba(255, 255, 255, 0.07);  /* hairline default */
+  --line-2: rgba(255, 255, 255, 0.12);  /* stronger / hover */
+  --line-3: rgba(255, 255, 255, 0.18);  /* focus ring base */
+
+  /* ---------- Glossy surface helpers ---------- */
+  --gloss-top:   rgba(255, 255, 255, 0.06); /* top sheen on cards */
+  --gloss-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --tint-cyan:   rgba(45, 217, 240, 0.08);  /* faint accent wash */
+
+  /* ---------- Semantic ---------- */
+  --success: #3FD79A;
+  --warning: #F2C94C;
+  --danger:  #FF6B6B;
+
+  /* ---------- Elevation (shadows on near-black) ---------- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-md: 0 8px 24px -8px rgba(0,0,0,0.7);
+  --shadow-lg: 0 24px 60px -16px rgba(0,0,0,0.85);
+  --shadow-glow: 0 8px 32px -6px var(--shine-glow); /* cyan halo for primary CTA */
+
+  /* ---------- Radii ---------- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ---------- Spacing scale (8px base) ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* ---------- Type families ---------- */
+  --font-display: "Clash Display", "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Manrope", system-ui, -apple-system, sans-serif;
+  --font-mono:    "Space Mono", ui-monospace, "SF Mono", monospace;
+
+  /* ---------- Type scale ---------- */
+  --fs-display: clamp(3rem, 7vw, 5.5rem); /* @kind font */ /* hero headline */
+  --fs-h1:      clamp(2.25rem, 4.5vw, 3.5rem); /* @kind font */
+  --fs-h2:      clamp(1.875rem, 3vw, 2.5rem); /* @kind font */
+  --fs-h3:      1.5rem;
+  --fs-h4:      1.25rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body:    1rem;
+  --fs-sm:      0.875rem;
+  --fs-xs:      0.75rem;
+
+  /* ---------- Motion ---------- */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */ /* smooth deceleration */
+  --ease-glide: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */ /* expand/collapse */
+  --dur-fast:   180ms; /* @kind other */
+  --dur-base:   320ms; /* @kind other */
+  --dur-slow:   600ms; /* @kind other */
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT DEFAULTS
+   (Optional reset layer - include after a normalize if desired)
+   ============================================================ */
+
+.uss-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+.uss-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h1);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+.uss-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--fg-1);
+}
+.uss-h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+.uss-h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-h4);
+  line-height: 1.3;
+  color: var(--fg-1);
+}
+.uss-body-lg {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+.uss-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+.uss-sm {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+/* Eyebrow / overline - the signature label treatment */
+.uss-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-xs);
+  line-height: 1;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--shine-cyan);
+}
+/* Numeric / price / spec treatment */
+.uss-mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-1);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
