@@ -53,7 +53,9 @@ export function CabinScanner({
   const on = (group: string) => lit.has(group)
 
   // Auto-advance; restarts after any change (including manual jumps).
+  // Respects prefers-reduced-motion (WCAG 2.2.2): no automatic movement.
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const t = setInterval(() => setI((x) => (x + 1) % steps.length), 4600)
     return () => clearInterval(t)
   }, [steps.length, i])
@@ -172,7 +174,7 @@ export function CabinScanner({
               type="button"
               className={n === i ? "on" : ""}
               onClick={() => setI(n)}
-              aria-label={"Step " + (n + 1) + ": " + s.t}
+              aria-label={"Step " + String(n + 1).padStart(2, "0") + ": " + s.t}
             >
               {String(n + 1).padStart(2, "0")}
             </button>

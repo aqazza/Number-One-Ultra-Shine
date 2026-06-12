@@ -16,6 +16,7 @@ export default function PrivacyPage() {
       <Atmos />
       <div className="page">
         <Header active="" />
+        <main>
         <section className="legal">
           <div className="wrap">
             <div className="eyebrow-row">
@@ -73,6 +74,7 @@ export default function PrivacyPage() {
             </p>
           </div>
         </section>
+        </main>
         <Footer />
       </div>
     </>

@@ -22,7 +22,9 @@ export default async function HomePage() {
       <Atmos />
       <div className="page">
         <Header active="Services" />
-        <Render config={config} data={data} />
+        <main>
+          <Render config={config} data={data} />
+        </main>
         <Footer />
       </div>
     </>

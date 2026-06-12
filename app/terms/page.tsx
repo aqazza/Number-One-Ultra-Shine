@@ -16,6 +16,7 @@ export default function TermsPage() {
       <Atmos />
       <div className="page">
         <Header active="" />
+        <main>
         <section className="legal">
           <div className="wrap">
             <div className="eyebrow-row">
@@ -79,6 +80,7 @@ export default function TermsPage() {
             </p>
           </div>
         </section>
+        </main>
         <Footer />
       </div>
     </>

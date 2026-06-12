@@ -74,27 +74,27 @@ export function Footer() {
                 <span className="b">Premium Auto Detailing</span>
               </span>
             </Link>
-            <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--fg-3)", margin: "8px 0 0" }}>
+            <p style={{ fontSize: 14, lineHeight: 1.65, color: "#D6DAE0", margin: "8px 0 0" }}>
               Family-run detailing in Glendora, CA since 1995. Careful, hand-finished work that makes
               your vehicle look its best.
             </p>
           </div>
           <div className="links">
             <div className="col">
-              <h4>Explore</h4>
+              <h3>Explore</h3>
               <Link href="/#services">Services</Link>
               <Link href="/gallery">Gallery</Link>
               <Link href="/about">About</Link>
               <Link href="/#reviews">Reviews</Link>
             </div>
             <div className="col">
-              <h4>Company</h4>
+              <h3>Company</h3>
               <Link href="/contact">Contact</Link>
               <Link href="/privacy">Privacy Policy</Link>
               <Link href="/terms">Terms of Service</Link>
             </div>
             <div className="col">
-              <h4>Visit</h4>
+              <h3>Visit</h3>
               <a
                 href="https://maps.google.com/?q=525+E+Route+66+Glendora+CA+91740"
                 target="_blank"
@@ -118,6 +118,16 @@ export function Footer() {
             <span className="sep">·</span>
             <span>Glendora, CA · Since 1995</span>
           </span>
+          <Link className="a11y-badge" href="/accessibility">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="4.5" r="2" fill="currentColor" />
+              <path
+                fill="currentColor"
+                d="M12 7.5c-.6 0-4.9-.5-6.3-.7a.9.9 0 0 0-.3 1.8l4.6.9c.3 0 .5.3.5.6v1.9c0 .2 0 .4-.1.6l-2.3 5.9a.95.95 0 0 0 1.8.7l2.1-5.2 2.1 5.2a.95.95 0 0 0 1.8-.7l-2.3-5.9a1.6 1.6 0 0 1-.1-.6v-1.9c0-.3.2-.6.5-.6l4.6-.9a.9.9 0 0 0-.3-1.8c-1.4.2-5.7.7-6.3.7Z"
+              />
+            </svg>
+            <span>ADA · WCAG 2.1 AA</span>
+          </Link>
         </div>
       </div>
     </footer>

@@ -24,7 +24,9 @@ export default async function AboutPage() {
       <Atmos />
       <div className="page">
         <Header active="About" />
-        <Render config={config} data={data} />
+        <main>
+          <Render config={config} data={data} />
+        </main>
         <Footer />
       </div>
     </>

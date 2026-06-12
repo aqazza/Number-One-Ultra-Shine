@@ -36,10 +36,10 @@ function GStars({ value = 5, size = 16 }: { value?: number; size?: number }) {
       </svg>
     ))
   return (
-    <div className="g-stars" aria-label={value + " star rating"}>
+    <div className="g-stars" role="img" aria-label={value + " star rating"}>
       {row(false)}
       {/* gold overlay clipped to the rating for an accurate partial star */}
-      <div className="g-stars-fill" style={{ width: pct + "%" }}>
+      <div className="g-stars-fill" style={{ width: pct + "%" }} aria-hidden="true">
         {row(true)}
       </div>
     </div>

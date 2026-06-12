@@ -21,7 +21,9 @@ export default async function ContactPage() {
       <Atmos />
       <div className="page">
         <Header active="Contact" />
-        <Render config={config} data={data} />
+        <main>
+          <Render config={config} data={data} />
+        </main>
         <Footer />
       </div>
     </>

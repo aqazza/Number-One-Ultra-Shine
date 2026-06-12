@@ -21,7 +21,9 @@ export default async function GalleryPage() {
       <Atmos />
       <div className="page">
         <Header active="Gallery" />
-        <Render config={config} data={data} />
+        <main>
+          <Render config={config} data={data} />
+        </main>
         <Footer />
       </div>
     </>

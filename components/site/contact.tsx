@@ -220,6 +220,7 @@ export function ContactMain(p: ContactMainProps) {
   return (
     <section className="section ct-main">
       <div className="wrap">
+        <h2 className="sr-only">Contact details and booking form</h2>
         <div className="contact-grid">
           <Reveal tag="div">
             <div className="uss-card contact">

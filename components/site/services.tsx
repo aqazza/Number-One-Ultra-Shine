@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Icon } from "./icon"
 import { Btn, Eyebrow } from "./ui"
 import { Reveal } from "./reveal"
@@ -53,10 +53,36 @@ function ServiceCard({
 }
 
 function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => void }) {
+  const sheetRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!svc) return
+    // Move focus into the dialog, trap Tab inside it, restore focus on close.
+    const opener = document.activeElement as HTMLElement | null
+    const sheet = sheetRef.current
+    const focusables = () =>
+      sheet
+        ? Array.from(
+            sheet.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+          )
+        : []
+    focusables()[0]?.focus()
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
+      if (e.key === "Tab") {
+        const els = focusables()
+        if (!els.length) return
+        const first = els[0]
+        const last = els[els.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     document.addEventListener("keydown", onKey)
     const prev = document.body.style.overflow
@@ -64,6 +90,7 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
     return () => {
       document.removeEventListener("keydown", onKey)
       document.body.style.overflow = prev
+      opener?.focus?.()
     }
   }, [svc, onClose])
   if (!svc) return null
@@ -76,7 +103,7 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
   return (
     <div className="svc-ov" role="dialog" aria-modal="true" aria-label={svc.title}>
       <div className="svc-ov-scrim" onClick={onClose} />
-      <div className="svc-ov-sheet">
+      <div className="svc-ov-sheet" ref={sheetRef}>
         <button className="svc-ov-close" onClick={onClose} aria-label="Close">
           <Icon name="x" size={20} />
         </button>

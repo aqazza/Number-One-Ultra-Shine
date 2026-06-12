@@ -18,7 +18,6 @@ export function ExpandGallery({ items }: { items: GalleryItem[] }) {
           onMouseEnter={() => setActive(n)}
           onFocus={() => setActive(n)}
           onClick={() => setActive(n)}
-          aria-label={it.tag + ": " + it.caption}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={it.src} alt={it.caption} loading="lazy" decoding="async" />

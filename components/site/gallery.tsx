@@ -65,9 +65,27 @@ function BeforeAfter({ before, after }: { before: string; after: string }) {
       <span className="ba-tag l">Before</span>
       <span className="ba-tag r">After</span>
       <div className="ba-line" style={{ left: p + "%" }} />
-      <div className="ba-knob" style={{ left: p + "%" }}>
+      <button
+        type="button"
+        className="ba-knob"
+        style={{ left: p + "%" }}
+        role="slider"
+        aria-label="Before and after comparison"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(p)}
+        aria-orientation="horizontal"
+        onKeyDown={(e) => {
+          if (e.key === "ArrowLeft" || e.key === "ArrowDown") setP((v) => Math.max(0, v - 5))
+          else if (e.key === "ArrowRight" || e.key === "ArrowUp") setP((v) => Math.min(100, v + 5))
+          else if (e.key === "Home") setP(0)
+          else if (e.key === "End") setP(100)
+          else return
+          e.preventDefault()
+        }}
+      >
         <Icon name="chevrons-left-right" size={18} />
-      </div>
+      </button>
     </div>
   )
 }
@@ -103,6 +121,7 @@ export function GalleryGrid(props: GalleryGridProps) {
           ))}
         </div>
       </div>
+      <h2 className="sr-only">Before and after transformations</h2>
       <div className="gal-grid">
         {pairs.map((pair, i) => (
           <Tile key={i} pair={pair} delay={i * 90} />

@@ -32,7 +32,7 @@
   /* ---------- Foreground / text ---------- */
   --fg-1:  #F5F7FA;   /* primary text, headings */
   --fg-2:  #AEB4BD;   /* body / secondary text */
-  --fg-3:  #767D87;   /* muted captions, meta */
+  --fg-3:  #8A919C;   /* muted captions, meta (WCAG AA on all card surfaces) */
   --fg-4:  #4A5059;   /* disabled, faint */
 
   /* ---------- Hairline borders & dividers ---------- */

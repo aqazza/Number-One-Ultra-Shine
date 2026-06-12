@@ -22,17 +22,21 @@ export function Hero(p: HeroProps) {
   const refs = useRef<(HTMLVideoElement | null)[]>([])
   const count = p.videos.length
 
+  // Respects prefers-reduced-motion (WCAG 2.2.2): no rotation, no autoplay —
+  // the poster frames show instead.
   useEffect(() => {
     if (count < 2) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const t = setInterval(() => setI((x) => (x + 1) % count), 6400)
     return () => clearInterval(t)
   }, [count])
 
   // Only the visible clip plays; restart it from the top as it fades in.
   useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     refs.current.forEach((v, n) => {
       if (!v) return
-      if (n === i) {
+      if (n === i && !reduced) {
         v.currentTime = 0
         v.play().catch(() => {})
       } else {
