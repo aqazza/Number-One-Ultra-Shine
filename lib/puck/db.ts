@@ -84,6 +84,16 @@ export async function savePage(path: string, data: PageData): Promise<void> {
       )`
 }
 
+export async function listPages(): Promise<{ path: string; updated_at: string }[]> {
+  const sql = client()
+  if (!sql) return []
+  await ensureTables(sql)
+  return (await sql`SELECT path, updated_at FROM pages ORDER BY path`) as {
+    path: string
+    updated_at: string
+  }[]
+}
+
 export type VersionSummary = { id: number; created_at: string; blocks: string[] }
 
 export async function listVersions(path: string): Promise<VersionSummary[]> {

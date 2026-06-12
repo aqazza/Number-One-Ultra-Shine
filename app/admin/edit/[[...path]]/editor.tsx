@@ -6,7 +6,15 @@ import { buildEditorConfig } from "@/lib/puck/editor-config"
 import type { VersionSummary } from "@/lib/puck/db"
 import "@measured/puck/puck.css"
 
-export function AboutEditor({ path, initialData }: { path: string; initialData: Data }) {
+export function PageEditor({
+  path,
+  title,
+  initialData,
+}: {
+  path: string
+  title: string
+  initialData: Data
+}) {
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
   const [message, setMessage] = useState("")
   const editorCfg = useMemo(() => buildEditorConfig(), [])
@@ -75,6 +83,9 @@ export function AboutEditor({ path, initialData }: { path: string; initialData: 
         overrides={{
           headerActions: ({ children }) => (
             <>
+              <a href="/admin" style={{ ...btn(), textDecoration: "none", display: "inline-flex", alignItems: "center" }}>
+                Dashboard
+              </a>
               <button type="button" onClick={openHistory} style={btn()}>
                 History
               </button>
@@ -110,7 +121,7 @@ export function AboutEditor({ path, initialData }: { path: string; initialData: 
               borderBottom: "1px solid #eee",
             }}
           >
-            <strong style={{ fontSize: 14 }}>Version history</strong>
+            <strong style={{ fontSize: 14 }}>Version history — {title}</strong>
             <button type="button" onClick={() => setHistoryOpen(false)} style={btn()}>
               Close
             </button>
