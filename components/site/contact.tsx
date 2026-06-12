@@ -167,33 +167,38 @@ export function HomeContact(p: HomeContactProps) {
 }
 
 // Contact page hero
-export function ContactHero() {
+export type ContactHeroProps = {
+  eyebrow: string
+  headingTop: string
+  headingAccent: string
+  intro: string
+  details: ContactDetails
+}
+
+export function ContactHero(p: ContactHeroProps) {
   return (
     <section className="ct-hero">
       <div className="wrap">
         <Reveal className="ct-hero-in" tag="div">
-          <Eyebrow>Get in touch</Eyebrow>
+          <Eyebrow>{p.eyebrow}</Eyebrow>
           <h1>
-            Let&apos;s make your<br />
-            <span className="accent">car shine.</span>
+            {p.headingTop}<br />
+            <span className="accent">{p.headingAccent}</span>
           </h1>
-          <p>
-            Drop by the shop on Route 66, give us a call, or send a message below. We&apos;ll get you
-            booked for the detail your vehicle deserves.
-          </p>
+          <p>{p.intro}</p>
           <div className="ct-quick">
-            <a className="chip" href="tel:6266294916">
+            <a className="chip" href={"tel:" + p.details.phone.replace(/\D/g, "")}>
               <Icon name="phone" size={16} />
-              (626) 629-4916
+              {p.details.phone}
             </a>
             <a
               className="chip"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=1ultrashine@gmail.com"
+              href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + p.details.email}
               target="_blank"
               rel="noreferrer"
             >
               <Icon name="mail" size={16} />
-              1ultrashine@gmail.com
+              {p.details.email}
             </a>
           </div>
         </Reveal>
@@ -203,7 +208,15 @@ export function ContactHero() {
 }
 
 // Contact page main (info + map + full form with email)
-export function ContactMain() {
+export type ContactMainProps = {
+  infoTitle: string
+  note: string
+  mapQuery: string
+  formTitle: string
+  details: ContactDetails
+}
+
+export function ContactMain(p: ContactMainProps) {
   return (
     <section className="section ct-main">
       <div className="wrap">
@@ -211,29 +224,26 @@ export function ContactMain() {
           <Reveal tag="div">
             <div className="uss-card contact">
               <div className="pad">
-                <h3>Visit or reach out</h3>
-                <ContactInfo phone="(626) 629-4916" address="525 E Route 66, Glendora, CA 91740" email="1ultrashine@gmail.com" />
+                <h3>{p.infoTitle}</h3>
+                <ContactInfo {...p.details} />
                 <div className="ct-note">
                   <Icon name="clock" size={16} />
-                  <span>
-                    Hours vary, so call ahead and we&apos;ll make sure we&apos;re ready for you.
-                    Detailing excellence since 1995.
-                  </span>
+                  <span>{p.note}</span>
                 </div>
               </div>
             </div>
             <div className="ct-map">
               <iframe
                 className="ct-map-frame"
-                src="https://www.google.com/maps?q=Route+66+Car+Wash,+525+E+Route+66,+Glendora,+CA+91740&output=embed"
-                title="Map to Number One Ultra Shine at 525 E Route 66, Glendora, CA"
+                src={"https://www.google.com/maps?q=" + encodeURIComponent(p.mapQuery) + "&output=embed"}
+                title={"Map to Number One Ultra Shine at " + p.details.address}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
               <a
                 className="ct-map-open"
-                href="https://www.google.com/maps/search/?api=1&query=Route+66+Car+Wash%2C+525+E+Route+66%2C+Glendora%2C+CA+91740"
+                href={"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.mapQuery)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -245,7 +255,7 @@ export function ContactMain() {
           <Reveal tag="div" delay={120}>
             <div className="uss-card contact">
               <div className="pad">
-                <h3>Send a message</h3>
+                <h3>{p.formTitle}</h3>
                 <MessageForm includeEmail size="lg" />
               </div>
             </div>
