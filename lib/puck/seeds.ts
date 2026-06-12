@@ -9,6 +9,7 @@ import {
   HOME_REVIEWS,
   HOME_CONTACT,
 } from "./home-content"
+import { GALLERY_GRID } from "./gallery-content"
 
 // Seed documents: every editable page's CURRENT live content, in order.
 // Used to auto-seed the database on first read and as the render fallback,
@@ -27,13 +28,22 @@ export const HOME_SEED: PageData = {
   ],
 }
 
+export const GALLERY_SEED: PageData = {
+  root: { props: {} },
+  content: [
+    { type: "GalleryGrid", props: { id: "GalleryGrid-seed", hidden: "show", ...GALLERY_GRID } },
+  ],
+}
+
 export const SEEDS: Record<string, PageData> = {
   "/": HOME_SEED,
   "/about": ABOUT_SEED,
+  "/gallery": GALLERY_SEED,
 }
 
 // Human titles for the admin dashboard.
 export const PAGE_TITLES: Record<string, string> = {
   "/": "Home",
   "/about": "About",
+  "/gallery": "Gallery",
 }

@@ -1,12 +1,13 @@
 import type { Config, Data } from "@measured/puck"
 import { aboutBlocks, ABOUT_IMAGE_FIELDS, type AboutBlockProps } from "@/lib/puck/blocks/about"
 import { homeBlocks, HOME_IMAGE_FIELDS, type HomeBlockProps } from "@/lib/puck/blocks/home"
+import { galleryBlocks, GALLERY_IMAGE_FIELDS, type GalleryBlockProps } from "@/lib/puck/blocks/gallery"
 
 // Puck blocks wrap the site's EXISTING components. Only content is editable
 // (headings, body copy, image URLs, lists, show/hide). Colors, spacing and
 // typography are locked in CSS and deliberately not exposed as fields.
 
-export type Blocks = AboutBlockProps & HomeBlockProps
+export type Blocks = AboutBlockProps & HomeBlockProps & GalleryBlockProps
 
 // The Puck document shape for pages built from these blocks.
 export type PageData = Data<Blocks>
@@ -17,6 +18,7 @@ export type PageData = Data<Blocks>
 export const IMAGE_FIELDS: Record<string, string[]> = {
   ...ABOUT_IMAGE_FIELDS,
   ...HOME_IMAGE_FIELDS,
+  ...GALLERY_IMAGE_FIELDS,
 }
 
 export const config: Config<Blocks> = {
@@ -24,6 +26,10 @@ export const config: Config<Blocks> = {
     home: {
       title: "Home sections",
       components: ["HomeHero", "TrustBar", "Services", "AboutTeaser", "WhyUs", "Reviews", "HomeContact"],
+    },
+    gallery: {
+      title: "Gallery sections",
+      components: ["GalleryGrid"],
     },
     about: {
       title: "About sections",
@@ -33,6 +39,7 @@ export const config: Config<Blocks> = {
   components: {
     ...aboutBlocks,
     ...homeBlocks,
+    ...galleryBlocks,
   } as Config<Blocks>["components"],
 }
 

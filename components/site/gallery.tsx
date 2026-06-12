@@ -5,47 +5,14 @@ import { Icon } from "./icon"
 import { Eyebrow } from "./ui"
 import { Reveal } from "./reveal"
 
-type Pair = { before: string; after: string; cat: string; label: string }
+export type Pair = { before: string; after: string; cat: string; label: string }
 
-// Real dirty -> clean detailing pairs. Owner can swap in same-car shop photos here.
-const PAIRS: Pair[] = [
-  {
-    before: "/photos/gallery/wheel-before.webp",
-    after: "/photos/gallery/wheel-after.webp",
-    cat: "Wheels",
-    label: "Brake-dust grime to spotless silver alloys",
-  },
-  {
-    before: "/photos/gallery/carpet-before.webp",
-    after: "/photos/gallery/carpet-after.webp",
-    cat: "Interior",
-    label: "Trash and stains shampooed out of the carpet",
-  },
-  {
-    before: "/photos/gallery/wash-before.webp",
-    after: "/photos/gallery/wash-after.webp",
-    cat: "Exterior",
-    label: "Mud-caked SUV washed back to a glossy black",
-  },
-  {
-    before: "/photos/gallery/seat-before.webp",
-    after: "/photos/gallery/seat-after.webp",
-    cat: "Interior",
-    label: "Grimy cloth seats shampooed like new",
-  },
-  {
-    before: "/photos/gallery/paint-before.webp",
-    after: "/photos/gallery/paint-after.webp",
-    cat: "Exterior",
-    label: "Faded classic paint polished to a deep gloss",
-  },
-  {
-    before: "/photos/gallery/foam-before.webp",
-    after: "/photos/gallery/foam-after.webp",
-    cat: "Exterior",
-    label: "Blue M Sport refined to a mirror gloss",
-  },
-]
+export type GalleryGridProps = {
+  eyebrow: string
+  heading: string
+  intro: string
+  pairs: Pair[]
+}
 
 const CATS = ["All", "Interior", "Exterior", "Wheels"] as const
 
@@ -115,18 +82,15 @@ function Tile({ pair, delay }: { pair: Pair; delay: number }) {
   )
 }
 
-export function GalleryGrid() {
+export function GalleryGrid(props: GalleryGridProps) {
   const [cat, setCat] = useState<(typeof CATS)[number]>("All")
-  const pairs = PAIRS.filter((p) => cat === "All" || p.cat === cat)
+  const pairs = props.pairs.filter((p) => cat === "All" || p.cat === cat)
   return (
     <div className="wrap">
       <div className="gal-head">
-        <Eyebrow>Before &amp; after</Eyebrow>
-        <h1>See the difference</h1>
-        <p>
-          Drag the slider across each photo to reveal the transformation, from grimy to gleaming.
-          Real detailing work, with more results added all the time.
-        </p>
+        <Eyebrow>{props.eyebrow}</Eyebrow>
+        <h1>{props.heading}</h1>
+        <p>{props.intro}</p>
         <div className="gal-filters">
           {CATS.map((c) => (
             <button
