@@ -3,6 +3,10 @@
 // moving to NextAuth: keep `isAuthorized(request)` and swap its internals
 // for a session check.
 
+export function authConfigured(): boolean {
+  return Boolean(process.env.ADMIN_USER && process.env.ADMIN_PASS)
+}
+
 export function isAuthorized(req: Request): boolean {
   const user = process.env.ADMIN_USER
   const pass = process.env.ADMIN_PASS
@@ -22,6 +26,16 @@ export function isAuthorized(req: Request): boolean {
 }
 
 export function unauthorized(): Response {
+  // Without configured credentials a 401 challenge would be an unwinnable
+  // login loop — explain the missing setup instead (leaks no secrets).
+  if (!authConfigured()) {
+    return new Response(
+      "Admin login is not configured on this deployment.\n\n" +
+        "Set the ADMIN_USER and ADMIN_PASS environment variables " +
+        "(Vercel → Settings → Environment Variables, all environments), then redeploy.",
+      { status: 503, headers: { "Content-Type": "text/plain; charset=UTF-8" } },
+    )
+  }
   return new Response("Authentication required", {
     status: 401,
     headers: { "WWW-Authenticate": 'Basic realm="Ultra Shine Admin", charset="UTF-8"' },
