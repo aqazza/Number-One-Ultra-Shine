@@ -1,16 +1,16 @@
 "use client"
 
-import { useState } from "react"
-import { Puck } from "@measured/puck"
-import type { PageData } from "@/puck.config"
-import config from "@/puck.config"
+import { useMemo, useState } from "react"
+import { Puck, type Data } from "@measured/puck"
+import { buildEditorConfig } from "@/lib/puck/editor-config"
 import "@measured/puck/puck.css"
 
-export function AboutEditor({ path, initialData }: { path: string; initialData: PageData }) {
+export function AboutEditor({ path, initialData }: { path: string; initialData: Data }) {
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
   const [message, setMessage] = useState("")
+  const editorCfg = useMemo(() => buildEditorConfig(), [])
 
-  const publish = async (data: PageData) => {
+  const publish = async (data: unknown) => {
     setStatus("saving")
     try {
       const res = await fetch("/api/puck", {
@@ -30,7 +30,7 @@ export function AboutEditor({ path, initialData }: { path: string; initialData: 
 
   return (
     <div style={{ position: "fixed", inset: 0 }}>
-      <Puck config={config} data={initialData} onPublish={publish} />
+      <Puck config={editorCfg} data={initialData} onPublish={publish} />
       {status !== "idle" && (
         <div
           role="status"

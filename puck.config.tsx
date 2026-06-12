@@ -45,7 +45,17 @@ const HIDDEN_FIELD = {
   ],
 }
 
-const img = (label: string) => ({ type: "text" as const, label: `${label} (path or URL)` })
+// Base config keeps images as plain text fields so public pages bundle zero
+// editor code. The editor swaps these for the Vercel Blob upload field via
+// lib/puck/editor-config using this registry ("arrayField.key" for arrays).
+export const IMAGE_FIELDS: Record<string, string[]> = {
+  AboutHero: ["mainImg", "subImg"],
+  Standards: ["cards.img"],
+  Timeline: ["items.img"],
+  FamilyNote: ["photo"],
+}
+
+const img = (label: string) => ({ type: "text" as const, label })
 
 export const config: Config<Blocks> = {
   categories: {

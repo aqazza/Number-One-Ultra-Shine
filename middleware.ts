@@ -6,12 +6,14 @@ import { isAuthorized, unauthorized } from "@/lib/admin-auth"
 // plus mutating calls to the Puck API. Auth internals live in lib/admin-auth
 // so swapping to NextAuth later only touches that module (and this matcher).
 export function middleware(req: NextRequest) {
-  const isApiRead = req.nextUrl.pathname.startsWith("/api/puck") && req.method === "GET"
-  if (isApiRead) return NextResponse.next()
+  // Public read of page data; everything else (saves, uploads, versions,
+  // export, the editor itself) requires auth.
+  const isPublicRead = req.nextUrl.pathname === "/api/puck" && req.method === "GET"
+  if (isPublicRead) return NextResponse.next()
   if (!isAuthorized(req)) return unauthorized()
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/puck"],
+  matcher: ["/admin/:path*", "/api/puck/:path*"],
 }
