@@ -38,6 +38,17 @@ but not save (HTTP 503).
 | Editor route | `app/admin/edit/about/page.tsx` |
 | Admin auth (swap for NextAuth here) | `lib/admin-auth.ts` + `middleware.ts` |
 
+**Version history:** every Publish stores a version (latest 50 per page).
+In the editor, click **History** to list versions and restore one — restores
+are saved as new versions, so they're always undoable.
+
+**Backup/export:** download every page and its full version history as one
+JSON file:
+
+```bash
+curl -u "$ADMIN_USER:$ADMIN_PASS" -o backup.json https://YOUR-DOMAIN/api/puck/export
+```
+
 To make another page editable later: extract its sections to prop-driven
 components, register them in `puck.config.tsx`, add the path to
 `EDITABLE_PATHS` in `lib/puck/db.ts`, and add an editor route under
