@@ -11,6 +11,7 @@ import {
 } from "./home-content"
 import { GALLERY_GRID } from "./gallery-content"
 import { CONTACT_HERO, CONTACT_MAIN } from "./contact-content"
+import { INTERIOR, EXTERIOR, FULL_DETAILS, CERAMIC, type ServicePageContent } from "./service-content"
 
 // Seed documents: every editable page's CURRENT live content, in order.
 // Used to auto-seed the database on first read and as the render fallback,
@@ -44,11 +45,28 @@ export const CONTACT_SEED: PageData = {
   ],
 }
 
+function serviceSeed(slug: string, c: ServicePageContent): PageData {
+  return {
+    root: { props: {} },
+    content: [
+      { type: "ServiceHero", props: { id: `ServiceHero-${slug}`, hidden: "show", ...c.hero } },
+      { type: "ServiceIncluded", props: { id: `ServiceIncluded-${slug}`, hidden: "show", ...c.included } },
+      { type: "ServiceProcess", props: { id: `ServiceProcess-${slug}`, hidden: "show", ...c.process } },
+      { type: "ServiceWork", props: { id: `ServiceWork-${slug}`, hidden: "show", ...c.work } },
+      { type: "ServiceCta", props: { id: `ServiceCta-${slug}`, hidden: "show", ...c.cta } },
+    ],
+  }
+}
+
 export const SEEDS: Record<string, PageData> = {
   "/": HOME_SEED,
   "/about": ABOUT_SEED,
   "/gallery": GALLERY_SEED,
   "/contact": CONTACT_SEED,
+  "/services/interior-detailing": serviceSeed("interior", INTERIOR),
+  "/services/exterior": serviceSeed("exterior", EXTERIOR),
+  "/services/full-details": serviceSeed("full", FULL_DETAILS),
+  "/services/ceramic-coating": serviceSeed("ceramic", CERAMIC),
 }
 
 // Human titles for the admin dashboard.
@@ -57,4 +75,8 @@ export const PAGE_TITLES: Record<string, string> = {
   "/about": "About",
   "/gallery": "Gallery",
   "/contact": "Contact",
+  "/services/interior-detailing": "Interior Detailing",
+  "/services/exterior": "Exterior Detailing",
+  "/services/full-details": "Full Details",
+  "/services/ceramic-coating": "Ceramic Coating",
 }
