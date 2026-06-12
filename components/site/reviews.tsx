@@ -5,17 +5,14 @@ import { Icon } from "./icon"
 import { Eyebrow } from "./ui"
 import { Reveal } from "./reveal"
 
-// Real 5-star Google reviews from the Route 66 Car Wash (Glendora) listing.
-const REVIEWS = [
-  { q: "I'm a new monthly member and have been really impressed with this car wash. It's efficient, never overly crowded, and always gets the job done well. The staff is friendly, and the vacuum areas are consistently clean.", nm: "M C", when: "5 days ago", av: "MC", c: "#8d6e63" },
-  { q: "Come here at least once a week. The free vacuum for customers is a big plus!", nm: "Joshua Casper", when: "10 months ago", av: "JC", c: "#1a73e8" },
-  { q: "All is good here. Friendly and reasonable. Get the all-you-can-wash deal!", nm: "Kousha Zarnegar", when: "2 months ago", av: "KZ", c: "#0b8043" },
-  { q: "Awesome price after 5pm, $6 to wash your vehicle. They have other services too.", nm: "Jesse B Butanda", when: "2 months ago", av: "JB", c: "#c5221f" },
-  { q: "Nice place to wash your car, pay by the month. Good price too.", nm: "Pedro Ontiveros", when: "10 months ago", av: "PO", c: "#e37400" },
-  { q: "Great customer service 💯", nm: "Jane Marquez McCaleb", when: "11 months ago", av: "JM", c: "#9334e6" },
-  { q: "Nice and affordable!", nm: "Martin", when: "10 months ago", av: "M", c: "#1a73e8" },
-  { q: "Am new here, so far so good.", nm: "Sal Medina", when: "10 months ago", av: "SM", c: "#c5221f" },
-]
+export type ReviewsProps = {
+  eyebrow: string
+  heading: string
+  intro: string
+  ratingValue: string
+  ratingNote: string
+  reviews: { q: string; nm: string; when: string; av: string; c: string }[]
+}
 
 // Google "G" mark for the reviews source label
 function GoogleG({ size = 18 }: { size?: number }) {
@@ -49,7 +46,8 @@ function GStars({ value = 5, size = 16 }: { value?: number; size?: number }) {
   )
 }
 
-export function Reviews() {
+export function Reviews(p: ReviewsProps) {
+  const REVIEWS = p.reviews
   const [per, setPer] = useState(3)
   const [start, setStart] = useState(0)
   useEffect(() => {
@@ -68,16 +66,16 @@ export function Reviews() {
     <section className="section" id="reviews">
       <div className="wrap">
         <Reveal className="sec-head" tag="div">
-          <Eyebrow>Kind words</Eyebrow>
-          <h2>Loved by Glendora drivers</h2>
-          <p>Real results, real reviews, three decades of happy customers.</p>
+          <Eyebrow>{p.eyebrow}</Eyebrow>
+          <h2>{p.heading}</h2>
+          <p>{p.intro}</p>
         </Reveal>
         <Reveal tag="div">
           <div className="g-summary">
             <div className="g-score">
-              <div className="num">4.6</div>
-              <GStars value={4.6} size={20} />
-              <div className="cnt">Based on 381 reviews</div>
+              <div className="num">{p.ratingValue}</div>
+              <GStars value={parseFloat(p.ratingValue) || 5} size={20} />
+              <div className="cnt">{p.ratingNote}</div>
             </div>
             <div className="g-src">
               <GoogleG size={26} />

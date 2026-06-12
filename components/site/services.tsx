@@ -5,12 +5,9 @@ import { Icon } from "./icon"
 import { Btn, Eyebrow } from "./ui"
 import { Reveal } from "./reveal"
 
-// Placeholder body copy: swap for the owner's real service descriptions.
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo."
-
-type Sub = { nm: string; ds: string; featured?: boolean }
-type Service = {
+export type Sub = { nm: string; ds: string; featured?: boolean }
+export type Service = {
+  details: string
   icon: string
   title: string
   img: string
@@ -19,70 +16,6 @@ type Service = {
   href: string
   subs: Sub[]
 }
-
-const SERVICES: Service[] = [
-  {
-    icon: "sparkles",
-    title: "Interior Detailing",
-    img: "/photos/interior-cleanup.webp",
-    href: "/services/interior-detailing",
-    blurb:
-      "A complete cabin reset: vacuumed, shampooed, and hand-wiped until every surface looks and feels new.",
-    subs: [
-      { nm: "Interior Express", ds: "Vacuum, full wipe-down & glass" },
-      { nm: "Seats Shampoo", ds: "Deep shampoo & hot-water extraction" },
-      { nm: "Carpet Shampoo", ds: "Carpets, mats & footwells" },
-      {
-        nm: "Full Interior Detail",
-        ds: "Interior Express, Seats Shampoo & Carpet Shampoo combined",
-        featured: true,
-      },
-    ],
-  },
-  {
-    icon: "car",
-    title: "Exterior",
-    img: "/photos/exterior-wash.webp",
-    href: "/services/exterior",
-    blurb:
-      "Decontaminate, correct, and protect your paint for a deep, mirror-like finish that lasts.",
-    subs: [
-      { nm: "Clay & Spray Wax", ds: "Decontaminate & quick-protect the paint" },
-      { nm: "Clay & Hand Wax", ds: "Clay bar followed by a hand-applied wax" },
-      { nm: "Full Exterior Detail", ds: "Wash, clay, polish & protect", featured: true },
-      { nm: "Paint Correction (Polishing)", ds: "Multi-stage cut to remove swirls & oxidation", featured: true },
-    ],
-  },
-  {
-    icon: "droplets",
-    title: "Full Details",
-    img: "/photos/detailing-station.webp",
-    href: "/services/full-details",
-    note: "Interior + Exterior combined, our most complete package.",
-    blurb:
-      "Everything we do, in one visit. Interior and exterior services combined for the most complete transformation.",
-    subs: [
-      {
-        nm: "Full Interior Detail & Full Exterior Detail",
-        ds: "Everything inside and out, fully detailed in one visit.",
-      },
-    ],
-  },
-  {
-    icon: "shield-check",
-    title: "Ceramic Coating",
-    img: "/photos/services/ceramic-beading.webp",
-    href: "/services/ceramic-coating",
-    note: "A long-term coating, not a wax. Lasting gloss & protection.",
-    blurb:
-      "A durable ceramic layer that bonds to your paint, with years of gloss, water-beading, and easier washes.",
-    subs: [
-      { nm: "1-Year Protection", ds: "Entry ceramic coating with strong gloss" },
-      { nm: "3-Year Protection", ds: "Durable multi-layer coating", featured: true },
-      { nm: "4-Year Protection", ds: "Our longest-lasting ceramic protection" },
-    ],
-  },
-]
 
 function ServiceCard({
   svc,
@@ -160,7 +93,7 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
               {svc.blurb}
               {svc.note ? " " + svc.note : ""}
             </p>
-            <p className="so-lorem">{LOREM}</p>
+            <p className="so-lorem">{svc.details}</p>
             <div className="so-cta">
               <Btn variant="primary" size="lg" href="/contact" icon="phone">
                 Book Now
@@ -221,18 +154,23 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
   )
 }
 
-export function Services() {
+export type ServicesProps = {
+  eyebrow: string
+  heading: string
+  intro: string
+  services: Service[]
+}
+
+export function Services(p: ServicesProps) {
+  const SERVICES = p.services
   const [open, setOpen] = useState(-1)
   return (
     <section className="section alt" id="services">
       <div className="wrap">
         <Reveal className="sec-head" tag="div">
-          <Eyebrow>What we do</Eyebrow>
-          <h2>Services built around your vehicle</h2>
-          <p>
-            Four ways we make your car shine. Tap any one to see what&apos;s included. Pricing
-            arrives soon.
-          </p>
+          <Eyebrow>{p.eyebrow}</Eyebrow>
+          <h2>{p.heading}</h2>
+          <p>{p.intro}</p>
         </Reveal>
         <div className="svc-grid">
           {SERVICES.map((svc, n) => (

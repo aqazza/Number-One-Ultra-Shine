@@ -1,6 +1,6 @@
 import { neon } from "@neondatabase/serverless"
 import type { PageData } from "@/puck.config"
-import { ABOUT_SEED } from "./about-seed"
+import { SEEDS } from "./seeds"
 
 // Puck page storage on Neon Postgres (Vercel's filesystem is ephemeral, so
 // no file-based storage).
@@ -11,7 +11,7 @@ import { ABOUT_SEED } from "./about-seed"
 // Without DATABASE_URL (e.g. fresh local checkout) reads return null so
 // callers fall back to the in-repo seed, and saves fail loudly.
 
-export const EDITABLE_PATHS = new Set(["/about"])
+export const EDITABLE_PATHS = new Set(Object.keys(SEEDS))
 
 const VERSION_CAP = 50
 
@@ -51,11 +51,12 @@ export async function getPage(path: string): Promise<PageData | null> {
   await ensureTables(sql)
   const rows = (await sql`SELECT data FROM pages WHERE path = ${path}`) as { data: PageData }[]
   if (rows.length > 0) return rows[0].data
-  // First read ever for /about: seed the table with the current live content
+  // First read ever for a page: seed the table with the current live content
   // so the editor starts from exactly what's published today.
-  if (path === "/about") {
-    await savePage(path, ABOUT_SEED)
-    return ABOUT_SEED
+  const seed = SEEDS[path]
+  if (seed) {
+    await savePage(path, seed)
+    return seed
   }
   return null
 }

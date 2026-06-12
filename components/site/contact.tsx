@@ -78,21 +78,23 @@ function MessageForm({
   )
 }
 
-function ContactInfo() {
+export type ContactDetails = { phone: string; address: string; email: string }
+
+function ContactInfo({ phone, address, email }: ContactDetails) {
   return (
     <>
-      <a className="crow" href="tel:6266294916">
+      <a className="crow" href={"tel:" + phone.replace(/\D/g, "")}>
         <span className="ci">
           <Icon name="phone" size={20} />
         </span>
         <div>
           <div className="ck">Call us</div>
-          <div className="cv">(626) 629-4916</div>
+          <div className="cv">{phone}</div>
         </div>
       </a>
       <a
         className="crow"
-        href="https://maps.google.com/?q=525+E+Route+66+Glendora+CA+91740"
+        href={"https://maps.google.com/?q=" + encodeURIComponent(address)}
         target="_blank"
         rel="noreferrer"
       >
@@ -101,12 +103,12 @@ function ContactInfo() {
         </span>
         <div>
           <div className="ck">Visit us</div>
-          <div className="cv">525 E Route 66, Glendora, CA 91740</div>
+          <div className="cv">{address}</div>
         </div>
       </a>
       <a
         className="crow"
-        href="https://mail.google.com/mail/?view=cm&fs=1&to=1ultrashine@gmail.com"
+        href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + email}
         target="_blank"
         rel="noreferrer"
       >
@@ -115,7 +117,7 @@ function ContactInfo() {
         </span>
         <div>
           <div className="ck">Email us</div>
-          <div className="cv">1ultrashine@gmail.com</div>
+          <div className="cv">{email}</div>
         </div>
       </a>
     </>
@@ -123,28 +125,37 @@ function ContactInfo() {
 }
 
 // Home page #contact section
-export function HomeContact() {
+export type HomeContactProps = {
+  eyebrow: string
+  heading: string
+  intro: string
+  infoTitle: string
+  formTitle: string
+  details: ContactDetails
+}
+
+export function HomeContact(p: HomeContactProps) {
   return (
     <section className="section alt" id="contact">
       <div className="wrap">
         <Reveal className="sec-head" tag="div">
-          <Eyebrow>Let&apos;s connect</Eyebrow>
-          <h2>Book your detail</h2>
-          <p>Drop by, give us a call, or send a message. We&apos;d love to help your vehicle shine.</p>
+          <Eyebrow>{p.eyebrow}</Eyebrow>
+          <h2>{p.heading}</h2>
+          <p>{p.intro}</p>
         </Reveal>
         <div className="contact-grid">
           <Reveal tag="div">
             <div className="uss-card contact">
               <div className="pad">
-                <h3>Visit or reach out</h3>
-                <ContactInfo />
+                <h3>{p.infoTitle}</h3>
+                <ContactInfo {...p.details} />
               </div>
             </div>
           </Reveal>
           <Reveal tag="div" delay={120}>
             <div className="uss-card contact">
               <div className="pad">
-                <h3>Send a message</h3>
+                <h3>{p.formTitle}</h3>
                 <MessageForm />
               </div>
             </div>
@@ -201,7 +212,7 @@ export function ContactMain() {
             <div className="uss-card contact">
               <div className="pad">
                 <h3>Visit or reach out</h3>
-                <ContactInfo />
+                <ContactInfo phone="(626) 629-4916" address="525 E Route 66, Glendora, CA 91740" email="1ultrashine@gmail.com" />
                 <div className="ct-note">
                   <Icon name="clock" size={16} />
                   <span>

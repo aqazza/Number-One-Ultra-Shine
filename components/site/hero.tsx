@@ -4,20 +4,29 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Btn, Eyebrow } from "./ui"
 
-const HERO_VIDEOS = [
-  { src: "/videos/wash.mp4", poster: "/photos/exterior-wash.webp" },
-  { src: "/videos/polish.mp4", poster: "/photos/detailing-station.webp" },
-  { src: "/videos/interior.mp4", poster: "/photos/closeup-care-1.webp" },
-]
+export type HeroProps = {
+  eyebrow: string
+  headingTop: string
+  headingMid: string
+  headingAccent: string
+  lead: string
+  primaryCta: string
+  secondaryCta: string
+  videos: { src: string; poster: string }[]
+  statNumber: string
+  statLabel: string
+}
 
-export function Hero() {
+export function Hero(p: HeroProps) {
   const [i, setI] = useState(0)
   const refs = useRef<(HTMLVideoElement | null)[]>([])
+  const count = p.videos.length
 
   useEffect(() => {
-    const t = setInterval(() => setI((x) => (x + 1) % HERO_VIDEOS.length), 6400)
+    if (count < 2) return
+    const t = setInterval(() => setI((x) => (x + 1) % count), 6400)
     return () => clearInterval(t)
-  }, [])
+  }, [count])
 
   // Only the visible clip plays; restart it from the top as it fades in.
   useEffect(() => {
@@ -35,7 +44,7 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="bg">
-        {HERO_VIDEOS.map((clip, n) => (
+        {p.videos.map((clip, n) => (
           <video
             key={clip.src}
             ref={(el) => {
@@ -54,21 +63,19 @@ export function Hero() {
       </div>
       <div className="wrap">
         <div className="inner">
-          <Eyebrow>Detailing Excellence Since 1995</Eyebrow>
+          <Eyebrow>{p.eyebrow}</Eyebrow>
           <h1>
-            Your car, finished
+            {p.headingTop}
             <br />
-            to a <span className="accent">flawless shine.</span>
+            {p.headingMid} <span className="accent">{p.headingAccent}</span>
           </h1>
-          <p className="lead">
-            Thirty years of hand-finished detailing on Route 66 in Glendora, done with care.
-          </p>
+          <p className="lead">{p.lead}</p>
           <div className="cta-row">
             <Btn variant="primary" size="lg" href="/contact" icon="phone">
-              Book Today
+              {p.primaryCta}
             </Btn>
             <Btn variant="secondary" size="lg" href="/#services" iconRight="arrow-right">
-              View Services
+              {p.secondaryCta}
             </Btn>
           </div>
           <nav className="hero-services" aria-label="Our services">
@@ -83,7 +90,7 @@ export function Hero() {
         </div>
       </div>
       <div className="dots">
-        {HERO_VIDEOS.map((_, n) => (
+        {p.videos.map((_, n) => (
           <button
             key={n}
             className={n === i ? "on" : ""}
@@ -93,8 +100,8 @@ export function Hero() {
         ))}
       </div>
       <div className="stat">
-        <div className="n">30+</div>
-        <div className="l">Years of craft</div>
+        <div className="n">{p.statNumber}</div>
+        <div className="l">{p.statLabel}</div>
       </div>
     </section>
   )

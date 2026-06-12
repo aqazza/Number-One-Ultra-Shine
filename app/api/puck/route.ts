@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { isAuthorized, unauthorized } from "@/lib/admin-auth"
 import { EDITABLE_PATHS, getPage, savePage, storageConfigured } from "@/lib/puck/db"
-import { ABOUT_SEED } from "@/lib/puck/about-seed"
+import { SEEDS } from "@/lib/puck/seeds"
 
 // GET /api/puck?path=/about  -> { data }
 export async function GET(req: Request) {
@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   if (!EDITABLE_PATHS.has(path)) {
     return NextResponse.json({ error: "Path not editable" }, { status: 400 })
   }
-  const data = (await getPage(path)) ?? (path === "/about" ? ABOUT_SEED : null)
+  const data = (await getPage(path)) ?? SEEDS[path] ?? null
   return NextResponse.json({ data })
 }
 
