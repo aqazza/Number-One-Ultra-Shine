@@ -97,8 +97,8 @@ export function Reviews(p: ReviewsProps) {
             className="rev-track"
             style={{ transform: `translateX(-${start * (100 / per)}%)` }}
           >
-            {REVIEWS.map((r) => (
-              <div className="rev" key={r.nm} style={{ flexBasis: 100 / per + "%" }}>
+            {REVIEWS.map((r, i) => (
+              <div className="rev" key={i} style={{ flexBasis: 100 / per + "%" }}>
                 <div className="uss-card">
                   <div className="pad">
                     <div className="rev-top">

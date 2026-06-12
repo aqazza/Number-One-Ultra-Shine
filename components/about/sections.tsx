@@ -82,8 +82,8 @@ export function StatsBand(p: StatsBandProps) {
     <section className="ab-stats-wrap">
       <div className="wrap">
         <Reveal className="ab-stats" tag="div">
-          {p.stats.map((s) => (
-            <div className="ab-stat" key={s.l}>
+          {p.stats.map((s, i) => (
+            <div className="ab-stat" key={i}>
               <div className="ab-stat-n">{s.n}</div>
               <div className="ab-stat-l">{s.l}</div>
             </div>
@@ -112,7 +112,7 @@ export function Standards(p: StandardsProps) {
         </Reveal>
         <div className="ab-feats">
           {p.cards.map((c, i) => (
-            <Reveal className="ab-feat" tag="article" key={c.t} delay={i * 90}>
+            <Reveal className="ab-feat" tag="article" key={i} delay={i * 90}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="ab-feat-img" src={c.img} alt="" loading="lazy" decoding="async" />
               <span className="ab-feat-grad" aria-hidden="true" />
@@ -149,7 +149,7 @@ export function Timeline(p: TimelineProps) {
         </Reveal>
         <div className="ab-eras">
           {p.items.map((it, i) => (
-            <Reveal className="ab-era" tag="div" key={it.yr} delay={i * 130}>
+            <Reveal className="ab-era" tag="div" key={i} delay={i * 130}>
               <div className="ab-era-text">
                 <h3>{it.t}</h3>
                 <p>{it.p}</p>

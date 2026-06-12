@@ -37,8 +37,8 @@ export function ServiceHero(p: ServiceHeroProps) {
               </Btn>
             </div>
             <div className="svp-stats">
-              {p.stats.map((s) => (
-                <div className="svp-stat" key={s.l}>
+              {p.stats.map((s, i) => (
+                <div className="svp-stat" key={i}>
                   <div className="n">{s.n}</div>
                   <div className="l">{s.l}</div>
                 </div>
@@ -84,7 +84,7 @@ export function ServiceIncluded(p: ServiceIncludedProps) {
         </Reveal>
         <div className="svp-tiers">
           {p.includes.map((inc, i) => (
-            <Reveal key={inc.nm} delay={i * 80}>
+            <Reveal key={i} delay={i * 80}>
               <div className={"svp-tier" + (inc.featured ? " feat" : "")}>
                 {inc.featured ? (
                   <span className="so-feat-star" aria-hidden="true">
@@ -102,8 +102,8 @@ export function ServiceIncluded(p: ServiceIncludedProps) {
                 <p>{inc.ds}</p>
                 {inc.points?.length ? (
                   <ul className="tier-points">
-                    {inc.points.map((pt) => (
-                      <li key={pt.text}>
+                    {inc.points.map((pt, pi) => (
+                      <li key={pi}>
                         <Icon name="check" size={13} />
                         {pt.text}
                       </li>
@@ -146,7 +146,7 @@ export function ServiceProcess(p: ServiceProcessProps) {
         ) : (
           <div className="svp-steps">
             {p.steps.map((s, i) => (
-              <Reveal key={s.t} delay={i * 80}>
+              <Reveal key={i} delay={i * 80}>
                 <div className="uss-card svp-step">
                   <div className="pad">
                     <span className="num">{String(i + 1).padStart(2, "0")}</span>

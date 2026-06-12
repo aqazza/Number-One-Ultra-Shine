@@ -12,8 +12,8 @@ export function TrustBar(p: TrustBarProps) {
   return (
     <div className="trust">
       <div className="wrap">
-        {p.items.map((x) => (
-          <div className="item" key={x.t}>
+        {p.items.map((x, i) => (
+          <div className="item" key={i}>
             <span className="chip">
               <Icon name={x.ic} size={18} />
             </span>
@@ -43,8 +43,8 @@ export function AboutTeaser(p: AboutTeaserProps) {
       <div className="wrap">
         <div className="about">
           <Reveal className="imgs" tag="div">
-            {p.imgs.map((img) => (
-              <div className="cell" key={img.src}>
+            {p.imgs.map((img, i) => (
+              <div className="cell" key={i}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img.src} alt="Detailing work" loading="lazy" decoding="async" />
               </div>
@@ -92,7 +92,7 @@ export function WhyUs(p: WhyUsProps) {
         </Reveal>
         <div className="why-grid">
           {p.cards.map((c, i) => (
-            <Reveal key={c.t} delay={i * 90}>
+            <Reveal key={i} delay={i * 90}>
               <div className="uss-card why" style={{ "--accent": c.accent } as CSSProperties}>
                 <span className="bar" />
                 <div className="pad">

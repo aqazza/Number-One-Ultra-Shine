@@ -105,7 +105,7 @@ export function GalleryGrid(props: GalleryGridProps) {
       </div>
       <div className="gal-grid">
         {pairs.map((pair, i) => (
-          <Tile key={pair.before} pair={pair} delay={i * 90} />
+          <Tile key={i} pair={pair} delay={i * 90} />
         ))}
       </div>
     </div>

@@ -122,14 +122,14 @@ function ServiceOverlay({ svc, onClose }: { svc: Service | null; onClose: () => 
         <div className="so-included">
           <div className="so-label">What&apos;s included</div>
           <div className="so-subs">
-            {svc.subs.map((s) => (
+            {svc.subs.map((s, i) => (
               <div
                 className={
                   "so-sub" +
                   (s.featured ? " feat" : "") +
                   (svc.subs.length === 1 ? " solo" : "")
                 }
-                key={s.nm}
+                key={i}
               >
                 {s.featured ? (
                   <span className="so-feat-star" aria-hidden="true">
@@ -175,7 +175,7 @@ export function Services(p: ServicesProps) {
         <div className="svc-grid">
           {SERVICES.map((svc, n) => (
             <ServiceCard
-              key={svc.title}
+              key={n}
               svc={svc}
               active={open === n}
               onClick={() => setOpen(n)}

@@ -168,7 +168,7 @@ export function CabinScanner({
         <div className="cscan-nav">
           {steps.map((s, n) => (
             <button
-              key={s.t}
+              key={n}
               type="button"
               className={n === i ? "on" : ""}
               onClick={() => setI(n)}

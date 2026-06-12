@@ -46,7 +46,7 @@ export function Hero(p: HeroProps) {
       <div className="bg">
         {p.videos.map((clip, n) => (
           <video
-            key={clip.src}
+            key={n}
             ref={(el) => {
               refs.current[n] = el
             }}

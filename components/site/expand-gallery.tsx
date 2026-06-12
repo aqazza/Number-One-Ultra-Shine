@@ -12,7 +12,7 @@ export function ExpandGallery({ items }: { items: GalleryItem[] }) {
     <div className="xgal">
       {items.map((it, n) => (
         <button
-          key={it.src}
+          key={n}
           type="button"
           className={"xgal-panel" + (n === active ? " on" : "")}
           onMouseEnter={() => setActive(n)}
